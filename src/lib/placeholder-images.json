@@ -1,3 +1,52 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "user-avatar-1",
+      "description": "Avatar for user Alex T.",
+      "imageUrl": "https://picsum.photos/seed/101/100/100",
+      "imageHint": "man portrait"
+    },
+    {
+      "id": "user-avatar-2",
+      "description": "Avatar for user Maria G.",
+      "imageUrl": "https://picsum.photos/seed/102/100/100",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "user-avatar-3",
+      "description": "Avatar for the current user.",
+      "imageUrl": "https://picsum.photos/seed/103/100/100",
+      "imageHint": "person gym"
+    },
+    {
+      "id": "social-post-1",
+      "description": "Image of a person running at sunset.",
+      "imageUrl": "https://picsum.photos/seed/201/600/400",
+      "imageHint": "running sunset"
+    },
+    {
+      "id": "social-post-2",
+      "description": "Image of a person doing yoga.",
+      "imageUrl": "https://picsum.photos/seed/202/600/400",
+      "imageHint": "yoga nature"
+    },
+    {
+      "id": "plan-cover-1",
+      "description": "Cover image for beginner full body plan.",
+      "imageUrl": "https://picsum.photos/seed/301/600/400",
+      "imageHint": "gym workout"
+    },
+    {
+      "id": "plan-cover-2",
+      "description": "Cover image for intermediate push/pull/legs plan.",
+      "imageUrl": "https://picsum.photos/seed/302/600/400",
+      "imageHint": "weightlifting intense"
+    },
+    {
+      "id": "plan-cover-3",
+      "description": "Cover image for cardio blast plan.",
+      "imageUrl": "https://picsum.photos/seed/303/600/400",
+      "imageHint": "running track"
+    }
+  ]
 }
