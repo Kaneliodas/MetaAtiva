@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Microphone, Plus } from 'lucide-react';
+import { Mic, Plus } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -68,7 +68,7 @@ export default function LogPage() {
           </div>
           <div className="flex gap-2">
             <Button onClick={() => setIsVoiceLogOpen(true)}>
-                <Microphone className="mr-2 h-4 w-4" />
+                <Mic className="mr-2 h-4 w-4" />
                 Log with Voice
             </Button>
             <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
