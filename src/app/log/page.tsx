@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Mic, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -31,31 +31,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useState } from 'react';
-import { VoiceLogDialog } from './voice-log-dialog';
-
-type WorkoutData = {
-  exercise: string;
-  sets?: number;
-  reps?: number;
-  weight?: number;
-  unit?: string;
-  duration?: number;
-  intensity?: number;
-  effort?: string;
-};
-
 
 export default function LogPage() {
     const [isFormOpen, setIsFormOpen] = useState(false);
-    const [isVoiceLogOpen, setIsVoiceLogOpen] = useState(false);
-
-    const handleVoiceLogSuccess = (data: Partial<WorkoutData>) => {
-        console.log('Received data from voice log:', data);
-        setIsVoiceLogOpen(false);
-        // Here you would typically pre-fill the form with this data
-        // For now, we'll just open the regular form
-        setIsFormOpen(true);
-    };
 
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
@@ -68,10 +46,6 @@ export default function LogPage() {
             </CardDescription>
           </div>
           <div className="flex gap-2">
-            <Button onClick={() => setIsVoiceLogOpen(true)}>
-                <Mic className="mr-2 h-4 w-4" />
-                Registrar com Voz
-            </Button>
             <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
                 <DialogTrigger asChild>
                     <Button>
@@ -134,7 +108,6 @@ export default function LogPage() {
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
-            <VoiceLogDialog open={isVoiceLogOpen} onOpenChange={setIsVoiceLogOpen} onSuccess={handleVoiceLogSuccess} />
           </div>
         </CardHeader>
         <CardContent>
