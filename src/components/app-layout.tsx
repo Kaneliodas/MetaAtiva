@@ -38,11 +38,11 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const navItems = [
-  { href: '/', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/log', label: 'Exercise Log', icon: PenSquare },
-  { href: '/goals', label: 'Goals', icon: Target },
-  { href: '/imc', label: 'IMC Calculator', icon: Calculator },
-  { href: '/plans', label: 'Training Plans', icon: BookOpen },
+  { href: '/', label: 'Painel', icon: LayoutDashboard },
+  { href: '/log', label: 'Registro de Exercícios', icon: PenSquare },
+  { href: '/goals', label: 'Metas', icon: Target },
+  { href: '/imc', label: 'Calculadora IMC', icon: Calculator },
+  { href: '/plans', label: 'Planos de Treino', icon: BookOpen },
   { href: '/social', label: 'Social', icon: Users },
 ];
 
@@ -81,17 +81,17 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <SidebarMenu>
                 <SidebarMenuItem>
                     <Link href="#">
-                        <SidebarMenuButton tooltip="Settings">
+                        <SidebarMenuButton tooltip="Configurações">
                             <Settings />
-                            <span>Settings</span>
+                            <span>Configurações</span>
                         </SidebarMenuButton>
                     </Link>
                 </SidebarMenuItem>
                  <SidebarMenuItem>
                     <Link href="#">
-                        <SidebarMenuButton tooltip="Logout">
+                        <SidebarMenuButton tooltip="Sair">
                             <LogOut />
-                            <span>Logout</span>
+                            <span>Sair</span>
                         </SidebarMenuButton>
                     </Link>
                 </SidebarMenuItem>
@@ -111,16 +111,16 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                   {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User avatar" data-ai-hint={userAvatar.imageHint} />}
                   <AvatarFallback>MA</AvatarFallback>
                 </Avatar>
-                <span className="sr-only">Toggle user menu</span>
+                <span className="sr-only">Alternar menu de usuário</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
+              <DropdownMenuItem>Configurações</DropdownMenuItem>
+              <DropdownMenuItem>Suporte</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem>Sair</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </header>

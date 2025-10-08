@@ -1,3 +1,4 @@
+
 import {
   Accordion,
   AccordionContent,
@@ -35,14 +36,14 @@ export default function PlanDetailPage({ params }: { params: { slug: string } })
             {plan.description}
           </p>
         </div>
-        <Button size="lg">Start This Plan</Button>
+        <Button size="lg">Iniciar Este Plano</Button>
       </div>
 
       <div className="grid gap-8 md:grid-cols-3">
         <div className="md:col-span-2">
           <Card>
             <CardHeader>
-              <CardTitle>Workout Schedule</CardTitle>
+              <CardTitle>Cronograma de Treino</CardTitle>
             </CardHeader>
             <CardContent>
               <Accordion type="single" collapsible defaultValue="day-1">
@@ -83,16 +84,16 @@ export default function PlanDetailPage({ params }: { params: { slug: string } })
             }
           <Card>
             <CardHeader>
-              <CardTitle>Plan Overview</CardTitle>
+              <CardTitle>Visão Geral do Plano</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
-                <p><strong>Level:</strong> {plan.level}</p>
-                <p><strong>Frequency:</strong> {Object.keys(plan.schedule).length} days a week</p>
-                <p><strong>Focus:</strong> Varies by day</p>
+                <p><strong>Nível:</strong> {plan.level}</p>
+                <p><strong>Frequência:</strong> {Object.keys(plan.schedule).length} dias por semana</p>
+                <p><strong>Foco:</strong> Varia por dia</p>
             </CardContent>
           </Card>
            <Button variant="outline" asChild className="w-full">
-            <Link href="/plans">Back to All Plans</Link>
+            <Link href="/plans">Voltar para Todos os Planos</Link>
           </Button>
         </div>
       </div>

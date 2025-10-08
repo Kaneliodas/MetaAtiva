@@ -1,3 +1,4 @@
+
 import {
   Card,
   CardContent,
@@ -25,47 +26,47 @@ export default function Dashboard() {
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <div className="flex items-center justify-between space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Painel</h1>
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Workouts This Week</CardTitle>
+            <CardTitle className="text-sm font-medium">Treinos Esta Semana</CardTitle>
             <Flame className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">3</div>
-            <p className="text-xs text-muted-foreground">+1 since last week</p>
+            <p className="text-xs text-muted-foreground">+1 desde a semana passada</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Goals</CardTitle>
+            <CardTitle className="text-sm font-medium">Metas Ativas</CardTitle>
             <Target className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{userGoals.length}</div>
-            <p className="text-xs text-muted-foreground">Keep pushing!</p>
+            <p className="text-xs text-muted-foreground">Continue firme!</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Goals Completed</CardTitle>
+            <CardTitle className="text-sm font-medium">Metas Concluídas</CardTitle>
             <Trophy className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">1</div>
-            <p className="text-xs text-muted-foreground">New achievement unlocked</p>
+            <p className="text-xs text-muted-foreground">Nova conquista desbloqueada</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Current BMI</CardTitle>
+            <CardTitle className="text-sm font-medium">IMC Atual</CardTitle>
             <BarChart className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">22.5</div>
-            <p className="text-xs text-muted-foreground">Healthy range</p>
+            <p className="text-xs text-muted-foreground">Faixa saudável</p>
           </CardContent>
         </Card>
       </div>
@@ -73,10 +74,10 @@ export default function Dashboard() {
         <Card className="col-span-4">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Activity /> Recent Activity
+              <Activity /> Atividade Recente
             </CardTitle>
             <CardDescription>
-              Here are your latest logged workouts.
+              Aqui estão seus últimos treinos registrados.
             </CardDescription>
           </CardHeader>
           <CardContent className="pl-2">
@@ -102,7 +103,7 @@ export default function Dashboard() {
           <CardFooter>
             <Button asChild size="sm" className="ml-auto gap-1">
               <Link href="/log">
-                View All
+                Ver Tudo
               </Link>
             </Button>
           </CardFooter>
@@ -110,10 +111,10 @@ export default function Dashboard() {
         <Card className="col-span-4 lg:col-span-3">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Target /> Goal Progress
+              <Target /> Progresso das Metas
             </CardTitle>
             <CardDescription>
-              You're doing great! Here is your progress.
+              Você está indo ótimo! Aqui está o seu progresso.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -131,7 +132,7 @@ export default function Dashboard() {
                     indicatorClassName="bg-accent"
                   />
                   {goal.current >= goal.target && (
-                    <Badge variant="secondary" className="mt-2 text-green-400 border-green-400/50">Completed!</Badge>
+                    <Badge variant="secondary" className="mt-2 text-green-400 border-green-400/50">Concluído!</Badge>
                   )}
                 </div>
               ))}
@@ -140,7 +141,7 @@ export default function Dashboard() {
           <CardFooter>
              <Button asChild size="sm" className="w-full gap-1">
               <Link href="/goals">
-                Manage Goals
+                Gerenciar Metas
               </Link>
             </Button>
           </CardFooter>

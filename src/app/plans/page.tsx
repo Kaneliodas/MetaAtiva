@@ -1,3 +1,4 @@
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,12 +20,12 @@ export default function PlansPage() {
     <div className="flex-1 space-y-6 p-4 md:p-8 pt-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Training Plans</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Planos de Treino</h1>
           <p className="text-muted-foreground">
-            Curated plans to help you reach your fitness goals.
+            Planos selecionados para ajudá-lo a alcançar seus objetivos de fitness.
           </p>
         </div>
-        <Button variant="outline">Create Custom Plan</Button>
+        <Button variant="outline">Criar Plano Personalizado</Button>
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {trainingPlans.map((plan) => {
@@ -56,7 +57,7 @@ export default function PlansPage() {
               <CardFooter>
                 <Button asChild className="w-full">
                   <Link href={`/plans/${plan.slug}`}>
-                    View Plan <ArrowRight className="ml-2 h-4 w-4" />
+                    Ver Plano <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
               </CardFooter>

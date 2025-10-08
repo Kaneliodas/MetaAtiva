@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,13 +18,13 @@ export default function GoalsPage() {
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Your Goals</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Suas Metas</h1>
           <p className="text-muted-foreground">
-            Track and manage your fitness ambitions.
+            Acompanhe e gerencie suas ambições de fitness.
           </p>
         </div>
         <Button>
-          <Plus className="mr-2 h-4 w-4" /> Add Goal
+          <Plus className="mr-2 h-4 w-4" /> Adicionar Meta
         </Button>
       </div>
 
@@ -40,7 +41,7 @@ export default function GoalsPage() {
                   {isCompleted && <Trophy className="w-6 h-6 text-yellow-400" />}
                 </CardTitle>
                 <CardDescription>
-                  Target: {goal.target} {goal.unit}
+                  Meta: {goal.target} {goal.unit}
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex-grow">
@@ -55,11 +56,11 @@ export default function GoalsPage() {
               <CardFooter>
                 {isCompleted ? (
                    <Badge variant="outline" className="w-full justify-center text-green-400 border-green-400/50 py-2">
-                    Goal Achieved!
+                    Meta Concluída!
                   </Badge>
                 ) : (
                   <Button variant="secondary" className="w-full">
-                    Update Progress
+                    Atualizar Progresso
                   </Button>
                 )}
               </CardFooter>
@@ -68,12 +69,12 @@ export default function GoalsPage() {
         })}
          <Card className="flex flex-col items-center justify-center border-dashed">
           <CardHeader>
-            <CardTitle>Create New Goal</CardTitle>
+            <CardTitle>Criar Nova Meta</CardTitle>
           </CardHeader>
           <CardContent>
             <Button size="lg">
               <Plus className="mr-2 h-5 w-5" />
-              Add New Goal
+              Adicionar Nova Meta
             </Button>
           </CardContent>
         </Card>

@@ -1,3 +1,4 @@
+
 'use client';
 import { Button } from '@/components/ui/button';
 import {
@@ -40,10 +41,10 @@ export default function ImcPage() {
 
   const getBmiCategory = (bmiValue: number | null) => {
     if (bmiValue === null) return '';
-    if (bmiValue < 18.5) return 'Underweight';
-    if (bmiValue < 24.9) return 'Healthy Weight';
-    if (bmiValue < 29.9) return 'Overweight';
-    return 'Obesity';
+    if (bmiValue < 18.5) return 'Abaixo do peso';
+    if (bmiValue < 24.9) return 'Peso saudável';
+    if (bmiValue < 29.9) return 'Sobrepeso';
+    return 'Obesidade';
   };
 
   return (
@@ -52,45 +53,45 @@ export default function ImcPage() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">IMC / BMI</h1>
           <p className="text-muted-foreground">
-            Calculate and track your Body Mass Index.
+            Calcule e acompanhe seu Índice de Massa Corporal.
           </p>
         </div>
       </div>
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>BMI Calculator</CardTitle>
+            <CardTitle>Calculadora de IMC</CardTitle>
             <CardDescription>
-              Enter your height and weight to calculate your BMI.
+              Insira sua altura e peso para calcular seu IMC.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid w-full items-center gap-1.5">
-              <Label htmlFor="height">Height (cm)</Label>
+              <Label htmlFor="height">Altura (cm)</Label>
               <Input
                 type="number"
                 id="height"
-                placeholder="e.g., 175"
+                placeholder="ex: 175"
                 value={height}
                 onChange={(e) => setHeight(e.target.value)}
               />
             </div>
             <div className="grid w-full items-center gap-1.5">
-              <Label htmlFor="weight">Weight (kg)</Label>
+              <Label htmlFor="weight">Peso (kg)</Label>
               <Input
                 type="number"
                 id="weight"
-                placeholder="e.g., 70"
+                placeholder="ex: 70"
                 value={weight}
                 onChange={(e) => setWeight(e.target.value)}
               />
             </div>
             <Button onClick={calculateBmi} className="w-full">
-              Calculate BMI
+              Calcular IMC
             </Button>
             {bmi !== null && (
               <div className="text-center p-4 bg-muted rounded-lg">
-                <p className="text-sm text-muted-foreground">Your BMI is</p>
+                <p className="text-sm text-muted-foreground">Seu IMC é</p>
                 <p className="text-5xl font-bold text-primary">{bmi}</p>
                 <p className="font-semibold">{getBmiCategory(bmi)}</p>
               </div>
@@ -99,8 +100,8 @@ export default function ImcPage() {
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>BMI Evolution</CardTitle>
-            <CardDescription>Your BMI trend over the last 6 months.</CardDescription>
+            <CardTitle>Evolução do IMC</CardTitle>
+            <CardDescription>Sua tendência de IMC nos últimos 6 meses.</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[300px]">
@@ -121,17 +122,17 @@ export default function ImcPage() {
         </Card>
         <Card className="lg:col-span-2">
            <CardHeader>
-            <CardTitle>Body Measurements</CardTitle>
-            <CardDescription>A log of your body measurements over time.</CardDescription>
+            <CardTitle>Medidas Corporais</CardTitle>
+            <CardDescription>Um registro de suas medidas corporais ao longo do tempo.</CardDescription>
           </CardHeader>
           <CardContent>
              <Table>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Date</TableHead>
-                        <TableHead>Chest</TableHead>
-                        <TableHead>Waist</TableHead>
-                        <TableHead>Hips</TableHead>
+                        <TableHead>Data</TableHead>
+                        <TableHead>Peito</TableHead>
+                        <TableHead>Cintura</TableHead>
+                        <TableHead>Quadril</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>

@@ -1,3 +1,4 @@
+
 'use client';
 import {
   Card,
@@ -61,37 +62,37 @@ export default function LogPage() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
-            <CardTitle>Exercise Log</CardTitle>
+            <CardTitle>Registro de Exercícios</CardTitle>
             <CardDescription>
-              A record of all your completed workouts.
+              Um registro de todos os seus treinos concluídos.
             </CardDescription>
           </div>
           <div className="flex gap-2">
             <Button onClick={() => setIsVoiceLogOpen(true)}>
                 <Mic className="mr-2 h-4 w-4" />
-                Log with Voice
+                Registrar com Voz
             </Button>
             <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
                 <DialogTrigger asChild>
                     <Button>
                         <Plus className="mr-2 h-4 w-4" />
-                        Log Workout
+                        Registrar Treino
                     </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                    <DialogTitle>Log New Workout</DialogTitle>
+                    <DialogTitle>Registrar Novo Treino</DialogTitle>
                     <DialogDescription>
-                        Add the details of your workout session. Click save when you're done.
+                        Adicione os detalhes da sua sessão de treino. Clique em salvar quando terminar.
                     </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
                         <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="exercise" className="text-right">Exercise</Label>
-                            <Input id="exercise" defaultValue="Bench Press" className="col-span-3" />
+                            <Label htmlFor="exercise" className="text-right">Exercício</Label>
+                            <Input id="exercise" defaultValue="Supino" className="col-span-3" />
                         </div>
                          <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="sets" className="text-right">Sets</Label>
+                            <Label htmlFor="sets" className="text-right">Séries</Label>
                             <Input id="sets" type="number" defaultValue="3" className="col-span-3" />
                         </div>
                          <div className="grid grid-cols-4 items-center gap-4">
@@ -99,11 +100,11 @@ export default function LogPage() {
                             <Input id="reps" type="number" defaultValue="8" className="col-span-3" />
                         </div>
                          <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="weight" className="text-right">Weight (kg)</Label>
+                            <Label htmlFor="weight" className="text-right">Peso (kg)</Label>
                             <Input id="weight" type="number" defaultValue="60" className="col-span-3" />
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
-                            <Label className="text-right">Perceived Effort</Label>
+                            <Label className="text-right">Esforço Percebido</Label>
                             <RadioGroup defaultValue="😐" className="col-span-3 flex gap-2">
                                 <div className="flex items-center space-x-1">
                                     <RadioGroupItem value="😊" id="r1" />
@@ -129,7 +130,7 @@ export default function LogPage() {
                         </div>
                     </div>
                     <DialogFooter>
-                    <Button type="submit" onClick={() => setIsFormOpen(false)}>Save Workout</Button>
+                    <Button type="submit" onClick={() => setIsFormOpen(false)}>Salvar Treino</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
@@ -140,10 +141,10 @@ export default function LogPage() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Date</TableHead>
-                <TableHead>Exercise</TableHead>
-                <TableHead>Details</TableHead>
-                <TableHead className="text-right">Effort</TableHead>
+                <TableHead>Data</TableHead>
+                <TableHead>Exercício</TableHead>
+                <TableHead>Detalhes</TableHead>
+                <TableHead className="text-right">Esforço</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

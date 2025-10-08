@@ -32,7 +32,7 @@ export function VoiceLogDialog({ open, onOpenChange, onSuccess }: VoiceLogDialog
 
   const handleParse = async () => {
     if (!inputText.trim()) {
-      setError('Please provide a description of your workout.');
+      setError('Por favor, forneça uma descrição do seu treino.');
       return;
     }
     setError(null);
@@ -40,18 +40,18 @@ export function VoiceLogDialog({ open, onOpenChange, onSuccess }: VoiceLogDialog
     try {
       const result = await voiceActivatedWorkoutLogging(inputText);
       toast({
-        title: "Workout Parsed!",
-        description: "Your workout form has been pre-filled.",
+        title: "Treino Analisado!",
+        description: "Seu formulário de treino foi pré-preenchido.",
       });
       onSuccess(result);
     } catch (e) {
       console.error(e);
-      const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
-      setError(`Failed to parse workout: ${errorMessage}`);
+      const errorMessage = e instanceof Error ? e.message : 'Ocorreu um erro desconhecido.';
+      setError(`Falha ao analisar o treino: ${errorMessage}`);
        toast({
         variant: "destructive",
-        title: "Parsing Failed",
-        description: `Could not understand the workout. Please try again or fill the form manually.`,
+        title: "Falha na Análise",
+        description: `Não foi possível entender o treino. Tente novamente ou preencha o formulário manualmente.`,
       });
     } finally {
       setIsLoading(false);
@@ -62,17 +62,17 @@ export function VoiceLogDialog({ open, onOpenChange, onSuccess }: VoiceLogDialog
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Log with Voice</DialogTitle>
+          <DialogTitle>Registrar com Voz</DialogTitle>
           <DialogDescription>
-            Describe your workout out loud (or type it below). For example, "I did 3 sets of 10 reps of bench press with 150 pounds".
+            Descreva seu treino em voz alta (ou digite abaixo). Por exemplo, "Eu fiz 3 séries de 10 repetições de supino com 70 quilos".
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4">
           <div className="grid w-full gap-1.5">
-            <Label htmlFor="workout-description">Workout Description</Label>
+            <Label htmlFor="workout-description">Descrição do Treino</Label>
             <Textarea
               id="workout-description"
-              placeholder="Type what you would say here..."
+              placeholder="Digite o que você diria aqui..."
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               rows={4}
@@ -80,18 +80,18 @@ export function VoiceLogDialog({ open, onOpenChange, onSuccess }: VoiceLogDialog
           </div>
           {error && (
             <Alert variant="destructive">
-              <AlertTitle>Error</AlertTitle>
+              <AlertTitle>Erro</AlertTitle>
               <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isLoading}>
-            Cancel
+            Cancelar
           </Button>
           <Button onClick={handleParse} disabled={isLoading}>
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {isLoading ? 'Parsing...' : 'Parse Workout'}
+            {isLoading ? 'Analisando...' : 'Analisar Treino'}
           </Button>
         </DialogFooter>
       </DialogContent>

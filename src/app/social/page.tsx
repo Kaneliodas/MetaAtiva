@@ -1,3 +1,4 @@
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,20 +18,20 @@ export default function SocialPage() {
   return (
     <div className="flex-1 p-4 md:p-6">
       <div className="max-w-2xl mx-auto space-y-6">
-        <h1 className="text-3xl font-bold tracking-tight">Social Feed</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Feed Social</h1>
         
         {/* Create Post Card */}
         <Card>
           <CardHeader className="p-4">
             <div className="flex items-center gap-4">
                <Avatar>
-                  {currentUserAvatar && <AvatarImage src={currentUserAvatar.imageUrl} alt="Your avatar" data-ai-hint={currentUserAvatar.imageHint} />}
+                  {currentUserAvatar && <AvatarImage src={currentUserAvatar.imageUrl} alt="Seu avatar" data-ai-hint={currentUserAvatar.imageHint} />}
                   <AvatarFallback>MA</AvatarFallback>
                 </Avatar>
-              <Input placeholder="Share your achievement..." />
+              <Input placeholder="Compartilhe sua conquista..." />
               <Button>
                 <Send className="h-4 w-4" />
-                <span className="sr-only">Post</span>
+                <span className="sr-only">Postar</span>
               </Button>
             </div>
           </CardHeader>
@@ -71,7 +72,7 @@ export default function SocialPage() {
                   <div className="aspect-video relative rounded-lg overflow-hidden border">
                     <Image
                       src={postImage.imageUrl}
-                      alt="Post image"
+                      alt="Imagem do post"
                       data-ai-hint={postImage.imageHint}
                       fill
                       className="object-cover"
@@ -90,7 +91,7 @@ export default function SocialPage() {
                 </Button>
                 <Button variant="ghost" className="flex-1">
                   <Share2 className="mr-2 h-4 w-4" />
-                  Share
+                  Compartilhar
                 </Button>
               </CardFooter>
             </Card>
