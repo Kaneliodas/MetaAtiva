@@ -29,11 +29,13 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Slider } from '@/components/ui/slider';
 import { useState } from 'react';
 
 export default function LogPage() {
     const [isFormOpen, setIsFormOpen] = useState(false);
+    const [effort, setEffort] = useState(5);
+
 
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
@@ -78,29 +80,16 @@ export default function LogPage() {
                             <Input id="weight" type="number" defaultValue="60" className="col-span-3" />
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
-                            <Label className="text-right">Esforço Percebido</Label>
-                            <RadioGroup defaultValue="😐" className="col-span-3 flex gap-2">
-                                <div className="flex items-center space-x-1">
-                                    <RadioGroupItem value="😊" id="r1" />
-                                    <Label htmlFor="r1">😊</Label>
-                                </div>
-                                <div className="flex items-center space-x-1">
-                                    <RadioGroupItem value="🙂" id="r2" />
-                                    <Label htmlFor="r2">🙂</Label>
-                                </div>
-                                <div className="flex items-center space-x-1">
-                                    <RadioGroupItem value="😐" id="r3" />
-                                    <Label htmlFor="r3">😐</Label>
-                                </div>
-                                <div className="flex items-center space-x-1">
-                                    <RadioGroupItem value="😕" id="r4" />
-                                    <Label htmlFor="r4">😕</Label>
-                                </div>
-                                <div className="flex items-center space-x-1">
-                                    <RadioGroupItem value="😫" id="r5" />
-                                    <Label htmlFor="r5">😫</Label>
-                                </div>
-                            </RadioGroup>
+                            <Label className="text-right">Esforço (0-10)</Label>
+                            <div className="col-span-3 flex items-center gap-4">
+                              <Slider
+                                defaultValue={[effort]}
+                                max={10}
+                                step={1}
+                                onValueChange={(value) => setEffort(value[0])}
+                              />
+                               <span className="font-bold w-6 text-center">{effort}</span>
+                            </div>
                         </div>
                     </div>
                     <DialogFooter>
@@ -117,7 +106,7 @@ export default function LogPage() {
                 <TableHead>Data</TableHead>
                 <TableHead>Exercício</TableHead>
                 <TableHead>Detalhes</TableHead>
-                <TableHead className="text-right">Esforço</TableHead>
+                <TableHead className="text-right">Esforço (0-10)</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

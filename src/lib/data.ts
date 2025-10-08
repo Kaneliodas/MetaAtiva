@@ -165,8 +165,8 @@ export const socialFeed = [
 ];
 
 export const exerciseLog = [
-    { id: 1, date: '2024-07-22', exercise: 'Supino', details: '3 séries, 8 reps, 60kg', effort: '😐' },
-    { id: 2, date: '2024-07-22', exercise: 'Agachamento', details: '4 séries, 10 reps, 80kg', effort: '😫' },
-    { id: 3, date: '2024-07-20', exercise: 'Corrida Matinal', details: '5 km, 30 mins', effort: '🙂' },
-    { id: 4, date: '2024-07-19', exercise: 'Barra Fixa', details: '3 séries, até a falha', effort: '😕' },
+    { id: 1, date: '2024-07-22', exercise: 'Supino', details: '3 séries, 8 reps, 60kg', effort: 6 },
+    { id: 2, date: '2024-07-22', exercise: 'Agachamento', details: '4 séries, 10 reps, 80kg', effort: 9 },
+    { id: 3, date: '2024-07-20', exercise: 'Corrida Matinal', details: '5 km, 30 mins', effort: 4 },
+    { id: 4, date: '2024-07-19', exercise: 'Barra Fixa', details: '3 séries, até a falha', effort: 8 },
 ];
