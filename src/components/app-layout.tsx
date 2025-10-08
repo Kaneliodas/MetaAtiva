@@ -13,7 +13,7 @@ import {
   SidebarFooter,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   Calculator,
   LayoutDashboard,
@@ -23,6 +23,7 @@ import {
   BookOpen,
   Settings,
   LogOut,
+  User,
 } from 'lucide-react';
 import { AppLogo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -48,8 +49,14 @@ const navItems = [
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const userAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar-3');
 
+  const handleLogout = () => {
+    // Aqui você adicionaria a lógica de logout (ex: limpar tokens, chamar API)
+    console.log('Usuário deslogado');
+    router.push('/'); // Redireciona para a página inicial após o logout
+  };
 
   return (
     <SidebarProvider>
@@ -80,20 +87,18 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         <SidebarFooter>
             <SidebarMenu>
                 <SidebarMenuItem>
-                    <Link href="#">
-                        <SidebarMenuButton tooltip="Configurações">
+                    <Link href="/settings">
+                        <SidebarMenuButton tooltip="Configurações" isActive={pathname.startsWith('/settings')}>
                             <Settings />
                             <span>Configurações</span>
                         </SidebarMenuButton>
                     </Link>
                 </SidebarMenuItem>
                  <SidebarMenuItem>
-                    <Link href="#">
-                        <SidebarMenuButton tooltip="Sair">
-                            <LogOut />
-                            <span>Sair</span>
-                        </SidebarMenuButton>
-                    </Link>
+                    <SidebarMenuButton tooltip="Sair" onClick={handleLogout}>
+                        <LogOut />
+                        <span>Sair</span>
+                    </SidebarMenuButton>
                 </SidebarMenuItem>
             </SidebarMenu>
         </SidebarFooter>
@@ -117,10 +122,23 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Configurações</DropdownMenuItem>
-              <DropdownMenuItem>Suporte</DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/settings">
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Perfil</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/settings">
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>Configurações</span>
+                </Link>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Sair</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout}>
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>Sair</span>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
