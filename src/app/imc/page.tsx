@@ -19,7 +19,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { bmiHistory, bodyMeasurements } from '@/lib/data';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Line, LineChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { ChartContainer, ChartTooltipContent, type ChartConfig } from '@/components/ui/chart';
 
@@ -34,6 +34,26 @@ export default function ImcPage() {
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
   const [bmi, setBmi] = useState<number | null>(null);
+
+  useEffect(() => {
+    const savedHeight = localStorage.getItem('userHeight');
+    const savedWeight = localStorage.getItem('userWeight');
+    if (savedHeight) {
+      setHeight(savedHeight);
+    }
+    if (savedWeight) {
+      setWeight(savedWeight);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (height) {
+      localStorage.setItem('userHeight', height);
+    }
+    if (weight) {
+      localStorage.setItem('userWeight', weight);
+    }
+  }, [height, weight]);
 
   const calculateBmi = () => {
     const h = parseFloat(height);
