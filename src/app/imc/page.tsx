@@ -21,7 +21,14 @@ import {
 import { bmiHistory, bodyMeasurements } from '@/lib/data';
 import { useState } from 'react';
 import { Line, LineChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { ChartTooltipContent } from '@/components/ui/chart';
+import { ChartContainer, ChartTooltipContent, type ChartConfig } from '@/components/ui/chart';
+
+const chartConfig = {
+  bmi: {
+    label: 'IMC',
+    color: 'hsl(var(--primary))',
+  },
+} satisfies ChartConfig;
 
 export default function ImcPage() {
   const [height, setHeight] = useState('');
@@ -105,18 +112,20 @@ export default function ImcPage() {
           </CardHeader>
           <CardContent>
             <div className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                 <LineChart data={bmiHistory} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                    <XAxis dataKey="date" stroke="hsl(var(--muted-foreground))" />
-                    <YAxis domain={['dataMin - 1', 'dataMax + 1']} stroke="hsl(var(--muted-foreground))" />
-                    <Tooltip
-                        content={<ChartTooltipContent />}
-                        cursor={{ fill: 'hsl(var(--muted))', fillOpacity: 0.5 }}
-                    />
-                    <Line type="monotone" dataKey="bmi" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ fill: 'hsl(var(--primary))', r: 4 }} activeDot={{ r: 6 }} />
-                </LineChart>
-              </ResponsiveContainer>
+              <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                   <LineChart data={bmiHistory} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                      <XAxis dataKey="date" stroke="hsl(var(--muted-foreground))" />
+                      <YAxis domain={['dataMin - 1', 'dataMax + 1']} stroke="hsl(var(--muted-foreground))" />
+                      <Tooltip
+                          content={<ChartTooltipContent />}
+                          cursor={{ fill: 'hsl(var(--muted))', fillOpacity: 0.5 }}
+                      />
+                      <Line type="monotone" dataKey="bmi" stroke="var(--color-bmi)" strokeWidth={2} dot={{ fill: 'var(--color-bmi)', r: 4 }} activeDot={{ r: 6 }} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </ChartContainer>
             </div>
           </CardContent>
         </Card>
