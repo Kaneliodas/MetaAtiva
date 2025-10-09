@@ -32,6 +32,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
 
 type Goal = typeof initialUserGoals[0];
 
@@ -40,25 +41,30 @@ export default function GoalsPage() {
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
   const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null);
   const [userGoals, setUserGoals] = useState(initialUserGoals);
-  const [newProgress, setNewProgress] = useState("");
+  const [newProgress, setNewProgress] = useState(0);
 
   const handleUpdateClick = (goal: Goal) => {
     setSelectedGoal(goal);
-    setNewProgress(goal.current.toString());
+    setNewProgress(goal.current);
     setIsUpdateDialogOpen(true);
   };
   
   const handleSaveChanges = () => {
     if (selectedGoal) {
       const updatedGoals = userGoals.map(goal =>
-        goal.id === selectedGoal.id ? { ...goal, current: Number(newProgress) } : goal
+        goal.id === selectedGoal.id ? { ...goal, current: newProgress } : goal
       );
       setUserGoals(updatedGoals);
     }
     setIsUpdateDialogOpen(false);
     setSelectedGoal(null);
-    setNewProgress("");
+    setNewProgress(0);
   };
+  
+  const isWeightLossGoal = selectedGoal?.title.toLowerCase().includes('perder peso') && selectedGoal?.unit === 'kg';
+  const sliderMin = isWeightLossGoal ? selectedGoal?.target : 0;
+  const sliderMax = isWeightLossGoal ? selectedGoal?.start ?? selectedGoal?.target + 5 : selectedGoal?.target ?? 100;
+
 
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
@@ -140,15 +146,19 @@ export default function GoalsPage() {
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="progress" className="text-right">
-                Progresso Atual
+                Progresso
               </Label>
-              <Input
-                id="progress"
-                type="number"
-                value={newProgress}
-                onChange={(e) => setNewProgress(e.target.value)}
-                className="col-span-3"
-              />
+              <div className="col-span-3 flex items-center gap-4">
+                <Slider
+                    value={[newProgress]}
+                    min={sliderMin}
+                    max={sliderMax}
+                    step={1}
+                    onValueChange={(value) => setNewProgress(value[0])}
+                    className="w-[80%]"
+                />
+                <span className="font-bold w-[20%] text-center">{newProgress}</span>
+              </div>
             </div>
           </div>
           <DialogFooter>
