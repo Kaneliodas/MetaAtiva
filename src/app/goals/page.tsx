@@ -62,22 +62,22 @@ export default function GoalsPage() {
 
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Suas Metas</h1>
-          <p className="text-muted-foreground">
-            Acompanhe e gerencie suas ambições de fitness.
-          </p>
-        </div>
-        <DialogTrigger asChild>
-           <Button onClick={() => setIsAddDialogOpen(true)}>
-            <Plus className="mr-2 h-4 w-4" /> Adicionar Meta
-          </Button>
-        </DialogTrigger>
-      </div>
-      
       {/* Add Goal Dialog */}
       <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight">Suas Metas</h1>
+            <p className="text-muted-foreground">
+              Acompanhe e gerencie suas ambições de fitness.
+            </p>
+          </div>
+          <DialogTrigger asChild>
+            <Button>
+              <Plus className="mr-2 h-4 w-4" /> Adicionar Meta
+            </Button>
+          </DialogTrigger>
+        </div>
+
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Adicionar Nova Meta</DialogTitle>
