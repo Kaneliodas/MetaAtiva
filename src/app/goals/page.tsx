@@ -77,7 +77,6 @@ export default function GoalsPage() {
         </div>
       </div>
 
-      {/* Add Goal Dialog */}
       <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -134,7 +133,6 @@ export default function GoalsPage() {
         </DialogContent>
       </Dialog>
       
-      {/* Update Progress Dialog */}
        <Dialog open={isUpdateDialogOpen} onOpenChange={setIsUpdateDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
