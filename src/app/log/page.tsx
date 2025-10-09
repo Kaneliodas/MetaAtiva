@@ -41,6 +41,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { useState } from 'react';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 export default function LogPage() {
   const [logs, setLogs] = useState(initialExerciseLog);
@@ -86,7 +87,7 @@ export default function LogPage() {
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
+        <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <CardTitle>Registro de Exercícios</CardTitle>
             <CardDescription>
@@ -146,33 +147,35 @@ export default function LogPage() {
           </div>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Data</TableHead>
-                <TableHead>Exercício</TableHead>
-                <TableHead>Detalhes</TableHead>
-                <TableHead>Esforço</TableHead>
-                <TableHead className="text-right">Ações</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {logs.map((log) => (
-                <TableRow key={log.id}>
-                  <TableCell>{log.date.replace(/-/g, '/')}</TableCell>
-                  <TableCell className="font-medium">{log.exercise}</TableCell>
-                  <TableCell>{log.details}</TableCell>
-                  <TableCell>{log.effort}</TableCell>
-                  <TableCell className="text-right">
-                    <Button variant="ghost" size="icon" onClick={() => setLogToDelete(log.id)}>
-                        <Trash2 className="h-4 w-4 text-destructive" />
-                        <span className="sr-only">Deletar</span>
-                    </Button>
-                  </TableCell>
+          <ScrollArea className="w-full whitespace-nowrap">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Data</TableHead>
+                  <TableHead>Exercício</TableHead>
+                  <TableHead>Detalhes</TableHead>
+                  <TableHead>Esforço</TableHead>
+                  <TableHead className="text-right">Ações</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {logs.map((log) => (
+                  <TableRow key={log.id}>
+                    <TableCell>{log.date.replace(/-/g, '/')}</TableCell>
+                    <TableCell className="font-medium">{log.exercise}</TableCell>
+                    <TableCell>{log.details}</TableCell>
+                    <TableCell>{log.effort}</TableCell>
+                    <TableCell className="text-right">
+                      <Button variant="ghost" size="icon" onClick={() => setLogToDelete(log.id)}>
+                          <Trash2 className="h-4 w-4 text-destructive" />
+                          <span className="sr-only">Deletar</span>
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </ScrollArea>
         </CardContent>
       </Card>
       <AlertDialog open={logToDelete !== null} onOpenChange={(open) => !open && setLogToDelete(null)}>

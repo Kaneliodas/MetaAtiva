@@ -67,13 +67,13 @@ export default function SocialPage() {
 
   return (
     <div className="flex-1 p-4 md:p-6">
-      <div className="max-w-2xl mx-auto space-y-6">
+      <div className="max-w-3xl mx-auto space-y-6">
         <h1 className="text-3xl font-bold tracking-tight">Feed Social</h1>
         
         {/* Create Post Card */}
         <Card>
           <CardHeader className="p-4">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 md:gap-4">
                <Avatar>
                   {currentUserAvatar && <AvatarImage src={currentUserAvatar.imageUrl} alt="Seu avatar" data-ai-hint={currentUserAvatar.imageHint} />}
                   <AvatarFallback>MA</AvatarFallback>
@@ -84,9 +84,13 @@ export default function SocialPage() {
                 onChange={(e) => setNewPostText(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleCreatePost()}
                 />
-              <Button onClick={handleCreatePost}>
+              <Button onClick={handleCreatePost} size="icon" className="md:hidden">
                 <Send className="h-4 w-4" />
                 <span className="sr-only">Postar</span>
+              </Button>
+               <Button onClick={handleCreatePost} className="hidden md:inline-flex">
+                <Send className="mr-2 h-4 w-4" />
+                Postar
               </Button>
             </div>
           </CardHeader>

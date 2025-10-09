@@ -62,7 +62,7 @@ export default function GoalsPage() {
 
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-2">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Suas Metas</h1>
           <p className="text-muted-foreground">
@@ -222,7 +222,7 @@ export default function GoalsPage() {
             </Card>
           );
         })}
-         <Card className="flex flex-col items-center justify-center border-dashed cursor-pointer hover:border-primary transition-colors" onClick={() => setIsAddDialogOpen(true)}>
+         <Card className="flex flex-col items-center justify-center border-dashed cursor-pointer hover:border-primary transition-colors min-h-[200px]" onClick={() => setIsAddDialogOpen(true)}>
             <CardHeader>
               <CardTitle>Criar Nova Meta</CardTitle>
             </CardHeader>

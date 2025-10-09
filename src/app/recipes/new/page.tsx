@@ -18,7 +18,7 @@ export default function NewRecipePage() {
                     </Link>
                 </Button>
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">Criar Nova Receita</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Criar Nova Receita</h1>
                     <p className="text-muted-foreground">
                         Preencha os detalhes da sua nova receita.
                     </p>

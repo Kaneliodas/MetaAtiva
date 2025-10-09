@@ -28,15 +28,15 @@ export default function PlanDetailPage({ params }: { params: { slug: string } })
 
   return (
     <div className="flex-1 space-y-6 p-4 md:p-8 pt-6">
-      <div className="flex items-start justify-between">
-        <div>
+      <div className="flex flex-col md:flex-row items-start justify-between gap-4">
+        <div className="flex-1">
           <Badge className="mb-2">{plan.level}</Badge>
-          <h1 className="text-4xl font-bold tracking-tight">{plan.title}</h1>
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{plan.title}</h1>
           <p className="mt-2 text-lg text-muted-foreground">
             {plan.description}
           </p>
         </div>
-        <Button size="lg">Iniciar Este Plano</Button>
+        <Button size="lg" className="w-full md:w-auto">Iniciar Este Plano</Button>
       </div>
 
       <div className="grid gap-8 md:grid-cols-3">

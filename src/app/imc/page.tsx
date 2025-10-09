@@ -22,6 +22,7 @@ import { bmiHistory, bodyMeasurements } from '@/lib/data';
 import { useState, useEffect } from 'react';
 import { Line, LineChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { ChartContainer, ChartTooltipContent, type ChartConfig } from '@/components/ui/chart';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const chartConfig = {
   bmi: {
@@ -76,7 +77,7 @@ export default function ImcPage() {
 
   return (
     <div className="flex-1 space-y-6 p-4 md:p-8 pt-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-2">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">IMC / BMI</h1>
           <p className="text-muted-foreground">
@@ -155,6 +156,7 @@ export default function ImcPage() {
             <CardDescription>Um registro de suas medidas corporais ao longo do tempo.</CardDescription>
           </CardHeader>
           <CardContent>
+            <ScrollArea className="w-full whitespace-nowrap">
              <Table>
                 <TableHeader>
                     <TableRow>
@@ -175,6 +177,7 @@ export default function ImcPage() {
                     ))}
                 </TableBody>
             </Table>
+            </ScrollArea>
           </CardContent>
         </Card>
       </div>
