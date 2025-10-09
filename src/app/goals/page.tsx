@@ -69,9 +69,6 @@ export default function GoalsPage() {
             Acompanhe e gerencie suas ambições de fitness.
           </p>
         </div>
-        <Button onClick={() => setIsAddDialogOpen(true)}>
-          <Plus className="mr-2 h-4 w-4" /> Adicionar Meta
-        </Button>
       </div>
 
       {/* Add Goal Dialog */}
