@@ -12,14 +12,33 @@ import {
 import { Input } from "@/components/ui/input";
 import { socialFeed as initialSocialFeed } from "@/lib/data";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Heart, MessageCircle, Send, Share2 } from "lucide-react";
+import { Heart, MessageCircle, MoreHorizontal, Send, Share2, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
+
+type Post = (typeof initialSocialFeed)[0];
 
 export default function SocialPage() {
     const [socialFeed, setSocialFeed] = useState(initialSocialFeed);
     const [newPostText, setNewPostText] = useState('');
     const currentUserAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar-3');
+    const [postToDelete, setPostToDelete] = useState<number | null>(null);
 
     const handleCreatePost = () => {
         if (newPostText.trim() === '') return;
@@ -37,6 +56,14 @@ export default function SocialPage() {
         setSocialFeed([newPost, ...socialFeed]);
         setNewPostText('');
     };
+
+    const confirmDeletePost = () => {
+        if (postToDelete !== null) {
+            setSocialFeed(socialFeed.filter(post => post.id !== postToDelete));
+            setPostToDelete(null);
+        }
+    };
+
 
   return (
     <div className="flex-1 p-4 md:p-6">
@@ -89,10 +116,28 @@ export default function SocialPage() {
                     {post.user.name.charAt(0)}
                   </AvatarFallback>
                 </Avatar>
-                <div>
+                <div className="flex-1">
                   <p className="font-semibold">{post.user.name}</p>
                   <p className="text-xs text-muted-foreground">{post.time}</p>
                 </div>
+                 {post.user.name === 'Você' && (
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon">
+                                <MoreHorizontal className="h-5 w-5" />
+                                <span className="sr-only">Opções</span>
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem 
+                                className="text-destructive"
+                                onSelect={() => setPostToDelete(post.id)}>
+                                <Trash2 className="mr-2 h-4 w-4" />
+                                Deletar
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                )}
               </CardHeader>
               <CardContent className="p-4 pt-0">
                 <p className="mb-4">{post.text}</p>
@@ -126,6 +171,22 @@ export default function SocialPage() {
           );
         })}
       </div>
+      <AlertDialog open={postToDelete !== null} onOpenChange={(open) => !open && setPostToDelete(null)}>
+        <AlertDialogContent>
+            <AlertDialogHeader>
+            <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
+            <AlertDialogDescription>
+                Esta ação não pode ser desfeita. Isso excluirá permanentemente sua postagem.
+            </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setPostToDelete(null)}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDeletePost} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                Deletar
+            </AlertDialogAction>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
