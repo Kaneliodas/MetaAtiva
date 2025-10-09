@@ -161,6 +161,8 @@ export default function ImcPage() {
                 <TableHeader>
                     <TableRow>
                         <TableHead>Data</TableHead>
+                        <TableHead>Peso</TableHead>
+                        <TableHead>Altura</TableHead>
                         <TableHead>Peito</TableHead>
                         <TableHead>Cintura</TableHead>
                         <TableHead>Quadril</TableHead>
@@ -170,6 +172,8 @@ export default function ImcPage() {
                     {bodyMeasurements.map((m, i) => (
                         <TableRow key={i}>
                             <TableCell>{m.date}</TableCell>
+                            <TableCell>{m.weight}</TableCell>
+                            <TableCell>{m.height}</TableCell>
                             <TableCell>{m.chest}</TableCell>
                             <TableCell>{m.waist}</TableCell>
                             <TableCell>{m.hips}</TableCell>
