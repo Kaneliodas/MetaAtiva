@@ -75,62 +75,6 @@ export default function GoalsPage() {
           </p>
         </div>
       </div>
-
-      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Adicionar Nova Meta</DialogTitle>
-            <DialogDescription>
-              Defina o que você quer alcançar. Você consegue!
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="title" className="text-right">
-                Título
-              </Label>
-              <Input
-                id="title"
-                defaultValue="Correr 5km"
-                className="col-span-3"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="target" className="text-right">
-                Valor Alvo
-              </Label>
-              <Input
-                id="target"
-                type="number"
-                defaultValue="5"
-                className="col-span-3"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="unit" className="text-right">
-                Unidade
-              </Label>
-              <Select defaultValue="km">
-                <SelectTrigger className="col-span-3">
-                  <SelectValue placeholder="Selecione a unidade" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="km">km (quilômetros)</SelectItem>
-                  <SelectItem value="kg">kg (quilogramas)</SelectItem>
-                  <SelectItem value="sessoes">sessões</SelectItem>
-                  <SelectItem value="min">minutos</SelectItem>
-                  <SelectItem value="reps">reps</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button type="submit" onClick={() => setIsAddDialogOpen(false)}>
-              Salvar Meta
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
       
        <Dialog open={isUpdateDialogOpen} onOpenChange={setIsUpdateDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
@@ -235,19 +179,74 @@ export default function GoalsPage() {
             </Card>
           );
         })}
-        <DialogTrigger asChild>
-         <Card className="flex flex-col items-center justify-center border-dashed cursor-pointer hover:border-primary transition-colors min-h-[200px]" onClick={() => setIsAddDialogOpen(true)}>
-            <CardHeader>
-              <CardTitle>Criar Nova Meta</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Button size="lg" variant="outline">
-                <Plus className="mr-2 h-5 w-5" />
-                Adicionar Nova Meta
-              </Button>
-            </CardContent>
-          </Card>
-        </DialogTrigger>
+        <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+            <DialogTrigger asChild>
+                <Card className="flex flex-col items-center justify-center border-dashed cursor-pointer hover:border-primary transition-colors min-h-[200px]">
+                    <CardHeader>
+                    <CardTitle>Criar Nova Meta</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                    <Button size="lg" variant="outline">
+                        <Plus className="mr-2 h-5 w-5" />
+                        Adicionar Nova Meta
+                    </Button>
+                    </CardContent>
+                </Card>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+                <DialogTitle>Adicionar Nova Meta</DialogTitle>
+                <DialogDescription>
+                Defina o que você quer alcançar. Você consegue!
+                </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="title" className="text-right">
+                    Título
+                </Label>
+                <Input
+                    id="title"
+                    defaultValue="Correr 5km"
+                    className="col-span-3"
+                />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="target" className="text-right">
+                    Valor Alvo
+                </Label>
+                <Input
+                    id="target"
+                    type="number"
+                    defaultValue="5"
+                    className="col-span-3"
+                />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="unit" className="text-right">
+                    Unidade
+                </Label>
+                <Select defaultValue="km">
+                    <SelectTrigger className="col-span-3">
+                    <SelectValue placeholder="Selecione a unidade" />
+                    </SelectTrigger>
+                    <SelectContent>
+                    <SelectItem value="km">km (quilômetros)</SelectItem>
+                    <SelectItem value="kg">kg (quilogramas)</SelectItem>
+                    <SelectItem value="sessoes">sessões</SelectItem>
+                    <SelectItem value="min">minutos</SelectItem>
+                    <SelectItem value="reps">reps</SelectItem>
+                    </SelectContent>
+                </Select>
+                </div>
+            </div>
+            <DialogFooter>
+                <Button type="submit" onClick={() => setIsAddDialogOpen(false)}>
+                Salvar Meta
+                </Button>
+            </DialogFooter>
+            </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
