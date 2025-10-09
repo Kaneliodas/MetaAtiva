@@ -58,7 +58,6 @@ export default function GoalsPage() {
     }
     setIsUpdateDialogOpen(false);
     setSelectedGoal(null);
-    setNewProgress(0);
   };
   
   const isWeightLossGoal = selectedGoal?.title.toLowerCase().includes('perder peso') && selectedGoal?.unit === 'kg';
@@ -137,27 +136,31 @@ export default function GoalsPage() {
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Atualizar Progresso</DialogTitle>
-            <DialogDescription>
-              Você está quase lá! Qual é o seu progresso atual para "{selectedGoal?.title}"?
-            </DialogDescription>
+            {selectedGoal && (
+                <DialogDescription>
+                Você está quase lá! Qual é o seu progresso atual para "{selectedGoal.title}"?
+                </DialogDescription>
+            )}
           </DialogHeader>
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="progress" className="text-right">
-                Progresso
-              </Label>
-              <div className="col-span-3 flex items-center gap-4">
-                <Slider
-                    value={[newProgress]}
-                    min={sliderMin}
-                    max={sliderMax}
-                    step={isWeightLossGoal ? -1 : 1}
-                    onValueChange={(value) => setNewProgress(value[0])}
-                    className="w-[80%]"
-                />
-                <span className="font-bold w-[20%] text-center">{newProgress}</span>
+             <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="progress" className="text-right">
+                    Progresso
+                </Label>
+                <div className="col-span-3 flex items-center gap-2">
+                    <Slider
+                        value={[newProgress]}
+                        min={sliderMin}
+                        max={sliderMax}
+                        step={isWeightLossGoal ? 0.1 : 1}
+                        onValueChange={(value) => setNewProgress(value[0])}
+                        className="w-[80%]"
+                    />
+                    <span className="font-bold w-[50px] text-center text-sm">
+                        {newProgress.toFixed(isWeightLossGoal ? 1 : 0)}
+                    </span>
+                </div>
               </div>
-            </div>
           </div>
           <DialogFooter>
             <Button type="submit" onClick={handleSaveChanges}>
@@ -170,16 +173,18 @@ export default function GoalsPage() {
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {userGoals.map((goal) => {
-          const isWeightLossGoal = goal.title.toLowerCase().includes('perder peso') && goal.unit === 'kg';
+          const isWeightLoss = goal.title.toLowerCase().includes('perder peso') && goal.unit === 'kg';
           
           let progress = 0;
           let isCompleted = false;
 
-          if (isWeightLossGoal) {
-              const startWeight = goal.start ?? goal.target + 5; // Assume um peso inicial se não definido
-              const weightLost = startWeight - goal.current;
+          if (isWeightLoss) {
+              const startWeight = goal.start ?? goal.target; 
               const totalToLose = startWeight - goal.target;
-              progress = totalToLose > 0 ? (weightLost / totalToLose) * 100 : 0;
+              if (totalToLose > 0) {
+                const weightLost = startWeight - goal.current;
+                progress = (weightLost / totalToLose) * 100;
+              }
               isCompleted = goal.current <= goal.target;
           } else {
               progress = (goal.current / goal.target) * 100;
@@ -230,6 +235,7 @@ export default function GoalsPage() {
             </Card>
           );
         })}
+        <DialogTrigger asChild>
          <Card className="flex flex-col items-center justify-center border-dashed cursor-pointer hover:border-primary transition-colors min-h-[200px]" onClick={() => setIsAddDialogOpen(true)}>
             <CardHeader>
               <CardTitle>Criar Nova Meta</CardTitle>
@@ -241,6 +247,7 @@ export default function GoalsPage() {
               </Button>
             </CardContent>
           </Card>
+        </DialogTrigger>
       </div>
     </div>
   );

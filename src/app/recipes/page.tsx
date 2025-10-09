@@ -86,7 +86,7 @@ export default function RecipesPage() {
     }
 
     const getLabelForFilter = (filter: string) => {
-        return filter.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
+        return filter.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     }
 
   return (
@@ -106,7 +106,7 @@ export default function RecipesPage() {
           </Button>
         </div>
 
-        <div className="flex items-center justify-between gap-4 flex-wrap">
+        <div className="flex items-center justify-between gap-2 flex-wrap">
            <div className="flex gap-2 flex-wrap">
                 <Select value={mealType} onValueChange={setMealType}>
                     <SelectTrigger className="w-full sm:w-[180px]">
@@ -171,13 +171,13 @@ export default function RecipesPage() {
             </DropdownMenu>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredRecipes.map((recipe) => {
             const coverImage = PlaceHolderImages.find(
               (p) => p.id === recipe.coverImageId
             );
             return (
-              <Card key={recipe.slug} className="overflow-hidden flex flex-col animate-in fade-in duration-300 transition-all hover:scale-105 hover:shadow-xl">
+              <Card key={recipe.slug} className="overflow-hidden flex flex-col transition-all duration-300 hover:scale-105 hover:shadow-xl">
                 <CardHeader className="p-0">
                   {coverImage && (
                     <div className="aspect-video relative">
