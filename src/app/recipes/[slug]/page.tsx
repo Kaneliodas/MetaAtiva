@@ -9,7 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-export default function RecipeDetailPage({ params }: { params: { slug: string } }) {
+export default async function RecipeDetailPage({ params }: { params: { slug: string } }) {
   const recipe = recipes.find((p) => p.slug === params.slug);
 
   if (!recipe) {
