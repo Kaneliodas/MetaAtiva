@@ -17,7 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { exerciseLog } from '@/lib/data';
+import { exerciseLog as initialExerciseLog } from '@/lib/data';
 import {
   Dialog,
   DialogContent,
@@ -33,9 +33,37 @@ import { Slider } from '@/components/ui/slider';
 import { useState } from 'react';
 
 export default function LogPage() {
-    const [isFormOpen, setIsFormOpen] = useState(false);
-    const [effort, setEffort] = useState(5);
+  const [logs, setLogs] = useState(initialExerciseLog);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  
+  // State for form fields
+  const [exercise, setExercise] = useState('Supino');
+  const [sets, setSets] = useState('3');
+  const [reps, setReps] = useState('8');
+  const [weight, setWeight] = useState('60');
+  const [effort, setEffort] = useState(5);
 
+  const handleSaveWorkout = () => {
+    if (!exercise || !sets || !reps) return; // Basic validation
+
+    const newLog = {
+      id: Date.now(),
+      date: new Date().toLocaleDateString('pt-BR', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-'),
+      exercise: exercise,
+      details: `${sets} séries, ${reps} reps, ${weight}kg`,
+      effort: effort,
+    };
+
+    setLogs([newLog, ...logs]);
+    
+    // Close dialog and reset form
+    setIsFormOpen(false);
+    setExercise('Supino');
+    setSets('3');
+    setReps('8');
+    setWeight('60');
+    setEffort(5);
+  };
 
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
@@ -65,25 +93,25 @@ export default function LogPage() {
                     <div className="grid gap-4 py-4">
                         <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="exercise" className="text-right">Exercício</Label>
-                            <Input id="exercise" defaultValue="Supino" className="col-span-3" />
+                            <Input id="exercise" value={exercise} onChange={(e) => setExercise(e.target.value)} className="col-span-3" />
                         </div>
                          <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="sets" className="text-right">Séries</Label>
-                            <Input id="sets" type="number" defaultValue="3" className="col-span-3" />
+                            <Input id="sets" type="number" value={sets} onChange={(e) => setSets(e.target.value)} className="col-span-3" />
                         </div>
                          <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="reps" className="text-right">Reps</Label>
-                            <Input id="reps" type="number" defaultValue="8" className="col-span-3" />
+                            <Input id="reps" type="number" value={reps} onChange={(e) => setReps(e.target.value)} className="col-span-3" />
                         </div>
                          <div className="grid grid-cols-4 items-center gap-4">
                             <Label htmlFor="weight" className="text-right">Peso (kg)</Label>
-                            <Input id="weight" type="number" defaultValue="60" className="col-span-3" />
+                            <Input id="weight" type="number" value={weight} onChange={(e) => setWeight(e.target.value)} className="col-span-3" />
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
                             <Label className="text-right">Esforço (0-10)</Label>
                             <div className="col-span-3 flex items-center gap-4">
                               <Slider
-                                defaultValue={[effort]}
+                                value={[effort]}
                                 max={10}
                                 step={1}
                                 onValueChange={(value) => setEffort(value[0])}
@@ -93,7 +121,7 @@ export default function LogPage() {
                         </div>
                     </div>
                     <DialogFooter>
-                    <Button type="submit" onClick={() => setIsFormOpen(false)}>Salvar Treino</Button>
+                    <Button type="submit" onClick={handleSaveWorkout}>Salvar Treino</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
@@ -110,9 +138,9 @@ export default function LogPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {exerciseLog.map((log) => (
+              {logs.map((log) => (
                 <TableRow key={log.id}>
-                  <TableCell>{log.date}</TableCell>
+                  <TableCell>{log.date.replace(/-/g, '/')}</TableCell>
                   <TableCell className="font-medium">{log.exercise}</TableCell>
                   <TableCell>{log.details}</TableCell>
                   <TableCell className="text-right">{log.effort}</TableCell>
