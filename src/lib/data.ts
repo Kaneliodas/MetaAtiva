@@ -180,6 +180,12 @@ export const recipes = [
     cookTime: '20 min',
     servings: '2',
     coverImageId: 'recipe-cover-1',
+    nutrition: {
+        calories: '450 kcal',
+        protein: '40g',
+        carbs: '30g',
+        fat: '18g',
+    },
     ingredients: [
       '1 xícara de quinoa cozida',
       '200g de peito de frango grelhado e desfiado',
@@ -206,6 +212,12 @@ export const recipes = [
     cookTime: '0 min',
     servings: '1',
     coverImageId: 'recipe-cover-2',
+    nutrition: {
+        calories: '250 kcal',
+        protein: '15g',
+        carbs: '35g',
+        fat: '8g',
+    },
     ingredients: [
       '1 xícara de espinafre fresco',
       '1/2 banana congelada',
@@ -228,6 +240,12 @@ export const recipes = [
     cookTime: '10 min',
     servings: '1',
     coverImageId: 'recipe-cover-3',
+    nutrition: {
+        calories: '350 kcal',
+        protein: '18g',
+        carbs: '50g',
+        fat: '10g',
+    },
     ingredients: [
         '1 banana madura amassada',
         '2 ovos',
