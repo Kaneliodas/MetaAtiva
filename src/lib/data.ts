@@ -179,6 +179,8 @@ export const recipes = [
     prepTime: '15 min',
     cookTime: '20 min',
     servings: '2',
+    difficulty: 'Fácil',
+    tags: ['Almoço', 'Rica em Proteínas', 'Emagrecimento'],
     coverImageId: 'recipe-cover-1',
     nutrition: {
         calories: '450 kcal',
@@ -211,6 +213,8 @@ export const recipes = [
     prepTime: '5 min',
     cookTime: '0 min',
     servings: '1',
+    difficulty: 'Fácil',
+    tags: ['Café da manhã', 'Lanche', 'Vegana', 'Até 10 min'],
     coverImageId: 'recipe-cover-2',
     nutrition: {
         calories: '250 kcal',
@@ -222,7 +226,7 @@ export const recipes = [
       '1 xícara de espinafre fresco',
       '1/2 banana congelada',
       '1/2 maçã verde, sem sementes',
-      '1/4 de xícara de iogurte grego natural',
+      '1/4 de xícara de iogurte grego natural (ou de coco para vegano)',
       '1/2 xícara de água ou leite de amêndoas',
       '1 colher de sopa de sementes de chia',
     ],
@@ -239,6 +243,8 @@ export const recipes = [
     prepTime: '5 min',
     cookTime: '10 min',
     servings: '1',
+    difficulty: 'Médio',
+    tags: ['Café da manhã', 'Sem Glúten', '10–30 min', 'Manutenção'],
     coverImageId: 'recipe-cover-3',
     nutrition: {
         calories: '350 kcal',
@@ -264,3 +270,5 @@ export const recipes = [
     ]
   }
 ];
+
+    
