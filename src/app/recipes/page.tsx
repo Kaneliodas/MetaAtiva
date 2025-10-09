@@ -177,7 +177,7 @@ export default function RecipesPage() {
               (p) => p.id === recipe.coverImageId
             );
             return (
-              <Card key={recipe.slug} className="overflow-hidden flex flex-col animate-in fade-in duration-300">
+              <Card key={recipe.slug} className="overflow-hidden flex flex-col animate-in fade-in duration-300 transition-all hover:scale-105 hover:shadow-xl">
                 <CardHeader className="p-0">
                   {coverImage && (
                     <div className="aspect-video relative">
