@@ -10,12 +10,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { recipes } from "@/lib/data";
+import { recipes as allRecipes } from "@/lib/data";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { ArrowRight, Plus, SlidersHorizontal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Select,
   SelectContent,
@@ -35,6 +35,60 @@ import { Badge } from "@/components/ui/badge";
 
 
 export default function RecipesPage() {
+    const [mealType, setMealType] = useState('all');
+    const [difficulty, setDifficulty] = useState('all');
+    const [prepTime, setPrepTime] = useState('all');
+    const [extraFilters, setExtraFilters] = useState<string[]>([]);
+
+
+    const filteredRecipes = useMemo(() => {
+        let recipes = allRecipes;
+
+        if (mealType !== 'all') {
+            recipes = recipes.filter(r => r.tags.some(tag => tag.toLowerCase() === mealType));
+        }
+
+        if (difficulty !== 'all') {
+            recipes = recipes.filter(r => r.difficulty.toLowerCase() === difficulty);
+        }
+        
+        if (prepTime !== 'all') {
+            const maxTime = parseInt(prepTime, 10);
+            if (maxTime === 10) {
+                 recipes = recipes.filter(r => parseInt(r.prepTime.replace(' min', '')) <= 10);
+            } else if (maxTime === 30) {
+                recipes = recipes.filter(r => {
+                    const time = parseInt(r.prepTime.replace(' min', ''));
+                    return time > 10 && time <= 30;
+                });
+            } else if (maxTime === 31) {
+                recipes = recipes.filter(r => parseInt(r.prepTime.replace(' min', '')) > 30);
+            }
+        }
+
+        if (extraFilters.length > 0) {
+            recipes = recipes.filter(r => extraFilters.every(filter => r.tags.map(t => t.toLowerCase().replace(' ', '-')).includes(filter)));
+        }
+
+        return recipes;
+
+    }, [mealType, difficulty, prepTime, extraFilters]);
+
+    const handleExtraFilterChange = (filter: string, checked: boolean) => {
+        setExtraFilters(prev => 
+            checked ? [...prev, filter] : prev.filter(f => f !== filter)
+        );
+    }
+  
+    const extraFilterOptions = {
+        'Objetivo Fitness': ['ganho-de-massa', 'emagrecimento', 'manutencao'],
+        'Tipo de Dieta': ['vegetariana', 'vegana', 'cetogenica', 'low-carb', 'rica-em-proteinas'],
+    }
+
+    const getLabelForFilter = (filter: string) => {
+        return filter.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
+    }
+
   return (
     <div className="flex-1 space-y-6 p-4 md:p-8 pt-6">
         <div className="flex items-center justify-between gap-4 flex-wrap">
@@ -54,32 +108,35 @@ export default function RecipesPage() {
 
         <div className="flex items-center justify-between gap-4 flex-wrap">
            <div className="flex gap-2 flex-wrap">
-                <Select>
+                <Select value={mealType} onValueChange={setMealType}>
                     <SelectTrigger className="w-full sm:w-[180px]">
                         <SelectValue placeholder="Tipo de Refeição" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="breakfast">Café da manhã</SelectItem>
-                        <SelectItem value="lunch">Almoço</SelectItem>
-                        <SelectItem value="dinner">Jantar</SelectItem>
-                        <SelectItem value="snack">Lanche</SelectItem>
+                        <SelectItem value="all">Todos</SelectItem>
+                        <SelectItem value="café da manhã">Café da manhã</SelectItem>
+                        <SelectItem value="almoço">Almoço</SelectItem>
+                        <SelectItem value="jantar">Jantar</SelectItem>
+                        <SelectItem value="lanche">Lanche</SelectItem>
                     </SelectContent>
                 </Select>
-                <Select>
+                <Select value={difficulty} onValueChange={setDifficulty}>
                     <SelectTrigger className="w-full sm:w-[180px]">
                         <SelectValue placeholder="Dificuldade" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="easy">Fácil</SelectItem>
-                        <SelectItem value="medium">Médio</SelectItem>
-                        <SelectItem value="hard">Difícil</SelectItem>
+                        <SelectItem value="all">Todas</SelectItem>
+                        <SelectItem value="fácil">Fácil</SelectItem>
+                        <SelectItem value="médio">Médio</SelectItem>
+                        <SelectItem value="difícil">Difícil</SelectItem>
                     </SelectContent>
                 </Select>
-                 <Select>
+                 <Select value={prepTime} onValueChange={setPrepTime}>
                     <SelectTrigger className="w-full sm:w-[180px]">
                         <SelectValue placeholder="Tempo de Preparo" />
                     </SelectTrigger>
                     <SelectContent>
+                        <SelectItem value="all">Qualquer</SelectItem>
                         <SelectItem value="10">Até 10 min</SelectItem>
                         <SelectItem value="30">10–30 min</SelectItem>
                         <SelectItem value="31">+30 min</SelectItem>
@@ -91,27 +148,31 @@ export default function RecipesPage() {
                 <Button variant="outline" className="ml-auto">
                   <SlidersHorizontal className="mr-2 h-4 w-4" />
                   Mais Filtros
+                   {extraFilters.length > 0 && <Badge variant="secondary" className="ml-2">{extraFilters.length}</Badge>}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-[250px]">
-                <DropdownMenuLabel>Objetivo Fitness</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuCheckboxItem>Ganho de massa</DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem>Emagrecimento</DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem>Manutenção</DropdownMenuCheckboxItem>
-                <DropdownMenuLabel className="mt-2">Tipo de Dieta</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuCheckboxItem>Vegetariana</DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem>Vegana</DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem>Cetogênica</DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem>Low carb</DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem>Rica em proteínas</DropdownMenuCheckboxItem>
+                {Object.entries(extraFilterOptions).map(([label, options]) => (
+                    <React.Fragment key={label}>
+                        <DropdownMenuLabel>{label}</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        {options.map(option => (
+                             <DropdownMenuCheckboxItem
+                                key={option}
+                                checked={extraFilters.includes(option)}
+                                onCheckedChange={(checked) => handleExtraFilterChange(option, !!checked)}
+                             >
+                                {getLabelForFilter(option)}
+                            </DropdownMenuCheckboxItem>
+                        ))}
+                    </React.Fragment>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {recipes.map((recipe) => {
+          {filteredRecipes.map((recipe) => {
             const coverImage = PlaceHolderImages.find(
               (p) => p.id === recipe.coverImageId
             );

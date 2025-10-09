@@ -180,7 +180,7 @@ export const recipes = [
     cookTime: '20 min',
     servings: '2',
     difficulty: 'Fácil',
-    tags: ['Almoço', 'Rica em Proteínas', 'Emagrecimento'],
+    tags: ['Almoço', 'Rica em proteínas', 'Emagrecimento'],
     coverImageId: 'recipe-cover-1',
     nutrition: {
         calories: '450 kcal',
@@ -214,7 +214,7 @@ export const recipes = [
     cookTime: '0 min',
     servings: '1',
     difficulty: 'Fácil',
-    tags: ['Café da manhã', 'Lanche', 'Vegana', 'Até 10 min'],
+    tags: ['Café da manhã', 'Lanche', 'Vegana'],
     coverImageId: 'recipe-cover-2',
     nutrition: {
         calories: '250 kcal',
@@ -244,7 +244,7 @@ export const recipes = [
     cookTime: '10 min',
     servings: '1',
     difficulty: 'Médio',
-    tags: ['Café da manhã', 'Sem Glúten', '10–30 min', 'Manutenção'],
+    tags: ['Café da manhã', 'Manutenção'],
     coverImageId: 'recipe-cover-3',
     nutrition: {
         calories: '350 kcal',
