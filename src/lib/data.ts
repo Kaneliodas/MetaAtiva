@@ -31,6 +31,7 @@ export const userGoals = [
   {
     id: 2,
     title: 'Perder Peso',
+    start: 82, // Add a starting value for weight loss goals
     current: 78,
     target: 75,
     unit: 'kg',
