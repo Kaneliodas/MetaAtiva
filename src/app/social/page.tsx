@@ -1,4 +1,6 @@
 
+'use client';
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,13 +10,34 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { socialFeed } from "@/lib/data";
+import { socialFeed as initialSocialFeed } from "@/lib/data";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Heart, MessageCircle, Send, Share2 } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function SocialPage() {
+    const [socialFeed, setSocialFeed] = useState(initialSocialFeed);
+    const [newPostText, setNewPostText] = useState('');
     const currentUserAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar-3');
+
+    const handleCreatePost = () => {
+        if (newPostText.trim() === '') return;
+
+        const newPost = {
+            id: Date.now(),
+            user: { name: 'Você', avatarId: 'user-avatar-3' },
+            time: 'agora mesmo',
+            text: newPostText,
+            image: null,
+            likes: 0,
+            comments: 0
+        };
+
+        setSocialFeed([newPost, ...socialFeed]);
+        setNewPostText('');
+    };
+
   return (
     <div className="flex-1 p-4 md:p-6">
       <div className="max-w-2xl mx-auto space-y-6">
@@ -28,8 +51,13 @@ export default function SocialPage() {
                   {currentUserAvatar && <AvatarImage src={currentUserAvatar.imageUrl} alt="Seu avatar" data-ai-hint={currentUserAvatar.imageHint} />}
                   <AvatarFallback>MA</AvatarFallback>
                 </Avatar>
-              <Input placeholder="Compartilhe sua conquista..." />
-              <Button>
+              <Input 
+                placeholder="Compartilhe sua conquista..." 
+                value={newPostText}
+                onChange={(e) => setNewPostText(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleCreatePost()}
+                />
+              <Button onClick={handleCreatePost}>
                 <Send className="h-4 w-4" />
                 <span className="sr-only">Postar</span>
               </Button>
