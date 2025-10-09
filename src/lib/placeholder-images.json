@@ -47,6 +47,24 @@
       "description": "Cover image for cardio blast plan.",
       "imageUrl": "https://picsum.photos/seed/303/600/400",
       "imageHint": "running track"
+    },
+    {
+      "id": "recipe-cover-1",
+      "description": "Cover image for Quinoa Salad with Grilled Chicken.",
+      "imageUrl": "https://picsum.photos/seed/401/600/400",
+      "imageHint": "quinoa salad"
+    },
+    {
+      "id": "recipe-cover-2",
+      "description": "Cover image for Energetic Green Smoothie.",
+      "imageUrl": "https://picsum.photos/seed/402/600/400",
+      "imageHint": "green smoothie"
+    },
+    {
+      "id": "recipe-cover-3",
+      "description": "Cover image for Oatmeal and Banana Pancakes.",
+      "imageUrl": "https://picsum.photos/seed/403/600/400",
+      "imageHint": "pancakes breakfast"
     }
   ]
 }

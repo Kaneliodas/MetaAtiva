@@ -170,3 +170,79 @@ export const exerciseLog = [
     { id: 3, date: '2024-07-20', exercise: 'Corrida Matinal', details: '5 km, 30 mins', effort: 4 },
     { id: 4, date: '2024-07-19', exercise: 'Barra Fixa', details: '3 séries, até a falha', effort: 8 },
 ];
+
+export const recipes = [
+  {
+    slug: 'salada-de-quinoa-com-frango-grelhado',
+    title: 'Salada de Quinoa com Frango Grelhado',
+    description: 'Uma salada rica em proteínas e nutrientes, perfeita para um almoço leve e satisfatório.',
+    prepTime: '15 min',
+    cookTime: '20 min',
+    servings: '2',
+    coverImageId: 'recipe-cover-1',
+    ingredients: [
+      '1 xícara de quinoa cozida',
+      '200g de peito de frango grelhado e desfiado',
+      '1/2 pepino em cubos',
+      '1/2 pimentão vermelho em cubos',
+      '1/4 de xícara de cebola roxa picada',
+      '1/4 de xícara de salsinha fresca picada',
+      'Suco de 1 limão',
+      '2 colheres de sopa de azeite de oliva extra virgem',
+      'Sal e pimenta a gosto',
+    ],
+    instructions: [
+      'Em uma tigela grande, combine a quinoa cozida, o frango desfiado, o pepino, o pimentão, a cebola roxa e a salsinha.',
+      'Em uma tigela pequena, misture o suco de limão, o azeite, o sal e a pimenta para fazer o molho.',
+      'Despeje o molho sobre a salada e misture bem.',
+      'Sirva imediatamente ou leve à geladeira por até 2 dias.',
+    ],
+  },
+  {
+    slug: 'smoothie-verde-energetico',
+    title: 'Smoothie Verde Energético',
+    description: 'Comece seu dia com energia total com este smoothie verde delicioso e nutritivo.',
+    prepTime: '5 min',
+    cookTime: '0 min',
+    servings: '1',
+    coverImageId: 'recipe-cover-2',
+    ingredients: [
+      '1 xícara de espinafre fresco',
+      '1/2 banana congelada',
+      '1/2 maçã verde, sem sementes',
+      '1/4 de xícara de iogurte grego natural',
+      '1/2 xícara de água ou leite de amêndoas',
+      '1 colher de sopa de sementes de chia',
+    ],
+    instructions: [
+      'Coloque todos os ingredientes no liquidificador.',
+      'Bata em alta velocidade até ficar homogêneo e cremoso.',
+      'Despeje em um copo e sirva imediatamente.',
+    ],
+  },
+  {
+    slug: 'panquecas-de-aveia-e-banana',
+    title: 'Panquecas de Aveia e Banana',
+    description: 'Uma opção de café da manhã saudável, sem glúten e sem açúcar refinado.',
+    prepTime: '5 min',
+    cookTime: '10 min',
+    servings: '1',
+    coverImageId: 'recipe-cover-3',
+    ingredients: [
+        '1 banana madura amassada',
+        '2 ovos',
+        '1/2 xícara de aveia em flocos',
+        '1/2 colher de chá de canela em pó',
+        '1/2 colher de chá de fermento em pó',
+        'Óleo de coco ou manteiga para untar',
+    ],
+    instructions: [
+        'Em uma tigela, misture a banana amassada e os ovos.',
+        'Adicione a aveia, a canela e o fermento e misture até incorporar.',
+        'Aqueça uma frigideira em fogo médio e unte com óleo de coco ou manteiga.',
+        'Despeje pequenas porções da massa na frigideira para formar as panquecas.',
+        'Cozinhe por 2-3 minutos de cada lado, ou até dourar.',
+        'Sirva com suas frutas favoritas, mel ou iogurte.',
+    ]
+  }
+];

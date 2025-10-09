@@ -24,6 +24,7 @@ import {
   Settings,
   LogOut,
   User,
+  BookHeart,
 } from 'lucide-react';
 import { AppLogo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -44,6 +45,7 @@ const navItems = [
   { href: '/goals', label: 'Metas', icon: Target },
   { href: '/imc', label: 'Calculadora IMC', icon: Calculator },
   { href: '/plans', label: 'Planos de Treino', icon: BookOpen },
+  { href: '/recipes', label: 'Livro de Receitas', icon: BookHeart },
   { href: '/social', label: 'Social', icon: Users },
 ];
 
@@ -73,7 +75,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <SidebarMenuItem key={item.href}>
                 <Link href={item.href}>
                   <SidebarMenuButton
-                    isActive={pathname === item.href}
+                    isActive={pathname.startsWith(item.href) && (item.href === '/' ? pathname === '/' : true)}
                     tooltip={item.label}
                   >
                     <item.icon />
