@@ -49,13 +49,6 @@ import { Badge } from "@/components/ui/badge";
 export default function RecipesPage() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
-  const recipeCategories = {
-    'Café da manhã': recipes.filter(r => r.tags.includes('Café da manhã')),
-    'Almoço': recipes.filter(r => r.tags.includes('Almoço')),
-    'Jantar': recipes.filter(r => r.tags.includes('Jantar')),
-    'Lanche': recipes.filter(r => r.tags.includes('Lanche')),
-  };
-
   return (
     <div className="flex-1 space-y-6 p-4 md:p-8 pt-6">
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -204,53 +197,43 @@ export default function RecipesPage() {
             </DialogFooter>
           </DialogContent>
 
-        <div className="space-y-8">
-          {Object.entries(recipeCategories).map(([category, recipesInCategory]) => {
-            if (recipesInCategory.length === 0) return null;
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {recipes.map((recipe) => {
+            const coverImage = PlaceHolderImages.find(
+              (p) => p.id === recipe.coverImageId
+            );
             return (
-              <div key={category}>
-                <h2 className="text-2xl font-bold tracking-tight mb-4">{category}</h2>
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                  {recipesInCategory.map((recipe) => {
-                    const coverImage = PlaceHolderImages.find(
-                      (p) => p.id === recipe.coverImageId
-                    );
-                    return (
-                      <Card key={recipe.slug} className="overflow-hidden flex flex-col">
-                        <CardHeader className="p-0">
-                          {coverImage && (
-                            <div className="aspect-video relative">
-                              <Image
-                                src={coverImage.imageUrl}
-                                alt={recipe.title}
-                                data-ai-hint={coverImage.imageHint}
-                                fill
-                                className="object-cover"
-                              />
-                            </div>
-                          )}
-                          <div className="p-6 pb-2">
-                            <div className="flex flex-wrap gap-2 mb-2">
-                                {recipe.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}
-                            </div>
-                            <CardTitle>{recipe.title}</CardTitle>
-                          </div>
-                        </CardHeader>
-                        <CardContent className="flex-grow">
-                          <CardDescription>{recipe.description}</CardDescription>
-                        </CardContent>
-                        <CardFooter>
-                          <Button asChild className="w-full">
-                            <Link href={`/recipes/${recipe.slug}`}>
-                              Ver Receita <ArrowRight className="ml-2 h-4 w-4" />
-                            </Link>
-                          </Button>
-                        </CardFooter>
-                      </Card>
-                    );
-                  })}
-                </div>
-              </div>
+              <Card key={recipe.slug} className="overflow-hidden flex flex-col">
+                <CardHeader className="p-0">
+                  {coverImage && (
+                    <div className="aspect-video relative">
+                      <Image
+                        src={coverImage.imageUrl}
+                        alt={recipe.title}
+                        data-ai-hint={coverImage.imageHint}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+                  <div className="p-6 pb-2">
+                    <div className="flex flex-wrap gap-2 mb-2">
+                        {recipe.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}
+                    </div>
+                    <CardTitle>{recipe.title}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <CardDescription>{recipe.description}</CardDescription>
+                </CardContent>
+                <CardFooter>
+                  <Button asChild className="w-full">
+                    <Link href={`/recipes/${recipe.slug}`}>
+                      Ver Receita <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
             );
           })}
         </div>
