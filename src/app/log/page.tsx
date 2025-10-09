@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
+import { Plus, Trash2 } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -27,6 +27,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
@@ -35,6 +45,7 @@ import { useState } from 'react';
 export default function LogPage() {
   const [logs, setLogs] = useState(initialExerciseLog);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [logToDelete, setLogToDelete] = useState<number | null>(null);
   
   // State for form fields
   const [exercise, setExercise] = useState('Supino');
@@ -63,6 +74,13 @@ export default function LogPage() {
     setReps('8');
     setWeight('60');
     setEffort(5);
+  };
+
+  const confirmDeleteLog = () => {
+    if (logToDelete !== null) {
+      setLogs(logs.filter(log => log.id !== logToDelete));
+      setLogToDelete(null);
+    }
   };
 
   return (
@@ -134,7 +152,8 @@ export default function LogPage() {
                 <TableHead>Data</TableHead>
                 <TableHead>Exercício</TableHead>
                 <TableHead>Detalhes</TableHead>
-                <TableHead className="text-right">Esforço (0-10)</TableHead>
+                <TableHead>Esforço</TableHead>
+                <TableHead className="text-right">Ações</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -143,13 +162,35 @@ export default function LogPage() {
                   <TableCell>{log.date.replace(/-/g, '/')}</TableCell>
                   <TableCell className="font-medium">{log.exercise}</TableCell>
                   <TableCell>{log.details}</TableCell>
-                  <TableCell className="text-right">{log.effort}</TableCell>
+                  <TableCell>{log.effort}</TableCell>
+                  <TableCell className="text-right">
+                    <Button variant="ghost" size="icon" onClick={() => setLogToDelete(log.id)}>
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                        <span className="sr-only">Deletar</span>
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </CardContent>
       </Card>
+      <AlertDialog open={logToDelete !== null} onOpenChange={(open) => !open && setLogToDelete(null)}>
+        <AlertDialogContent>
+            <AlertDialogHeader>
+            <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
+            <AlertDialogDescription>
+                Esta ação não pode ser desfeita. Isso excluirá permanentemente este registro de treino.
+            </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setLogToDelete(null)}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDeleteLog} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                Deletar
+            </AlertDialogAction>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
