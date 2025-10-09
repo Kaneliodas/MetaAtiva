@@ -62,8 +62,8 @@ export default function GoalsPage() {
   };
   
   const isWeightLossGoal = selectedGoal?.title.toLowerCase().includes('perder peso') && selectedGoal?.unit === 'kg';
-  const sliderMin = isWeightLossGoal ? selectedGoal?.target : 0;
-  const sliderMax = isWeightLossGoal ? selectedGoal?.start ?? selectedGoal?.target + 5 : selectedGoal?.target ?? 100;
+  const sliderMin = isWeightLossGoal ? selectedGoal?.target ?? 0 : 0;
+  const sliderMax = isWeightLossGoal ? selectedGoal?.start ?? selectedGoal?.target ?? 100 : selectedGoal?.target ?? 100;
 
 
   return (
@@ -151,7 +151,7 @@ export default function GoalsPage() {
                     value={[newProgress]}
                     min={sliderMin}
                     max={sliderMax}
-                    step={1}
+                    step={isWeightLossGoal ? -1 : 1}
                     onValueChange={(value) => setNewProgress(value[0])}
                     className="w-[80%]"
                 />
