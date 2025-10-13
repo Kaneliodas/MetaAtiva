@@ -1,6 +1,6 @@
+
 'use client';
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import ProfileSettings from "./_components/profile-settings";
 import AccountSettings from "./_components/account-settings";
@@ -14,8 +14,8 @@ export default function SettingsPage() {
           Gerencie seu perfil e suas preferências de conta.
         </p>
       </div>
-      <Tabs defaultValue="profile" className="space-y-4">
-        <TabsList>
+      <Tabs defaultValue="profile" className="w-full space-y-4">
+        <TabsList className="grid w-full grid-cols-2 md:w-[400px]">
           <TabsTrigger value="profile">Perfil</TabsTrigger>
           <TabsTrigger value="account">Conta</TabsTrigger>
         </TabsList>

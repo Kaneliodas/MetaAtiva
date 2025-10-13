@@ -31,6 +31,7 @@ export const userGoals = [
   {
     id: 2,
     title: 'Perder Peso',
+    start: 82, // Add a starting value for weight loss goals
     current: 78,
     target: 75,
     unit: 'kg',
@@ -54,9 +55,9 @@ export const bmiHistory = [
 ];
 
 export const bodyMeasurements = [
-    { date: '2024-01-15', chest: '102 cm', waist: '85 cm', hips: '98 cm' },
-    { date: '2024-03-15', chest: '103 cm', waist: '82 cm', hips: '97 cm' },
-    { date: '2024-06-15', chest: '105 cm', waist: '80 cm', hips: '96 cm' },
+    { date: '2024-01-15', weight: '82 kg', height: '175 cm', chest: '102 cm', waist: '85 cm', hips: '98 cm' },
+    { date: '2024-03-15', weight: '79 kg', height: '175 cm', chest: '103 cm', waist: '82 cm', hips: '97 cm' },
+    { date: '2024-06-15', weight: '78 kg', height: '175 cm', chest: '105 cm', waist: '80 cm', hips: '96 cm' },
 ];
 
 export const trainingPlans = [
@@ -180,7 +181,7 @@ export const recipes = [
     cookTime: '20 min',
     servings: '2',
     difficulty: 'Fácil',
-    tags: ['Almoço', 'Rica em Proteínas', 'Emagrecimento'],
+    tags: ['Almoço', 'Rica em proteínas', 'Emagrecimento'],
     coverImageId: 'recipe-cover-1',
     nutrition: {
         calories: '450 kcal',
@@ -214,7 +215,7 @@ export const recipes = [
     cookTime: '0 min',
     servings: '1',
     difficulty: 'Fácil',
-    tags: ['Café da manhã', 'Lanche', 'Vegana', 'Até 10 min'],
+    tags: ['Café da manhã', 'Lanche', 'Vegana'],
     coverImageId: 'recipe-cover-2',
     nutrition: {
         calories: '250 kcal',
@@ -244,7 +245,7 @@ export const recipes = [
     cookTime: '10 min',
     servings: '1',
     difficulty: 'Médio',
-    tags: ['Café da manhã', 'Sem Glúten', '10–30 min', 'Manutenção'],
+    tags: ['Café da manhã', 'Manutenção'],
     coverImageId: 'recipe-cover-3',
     nutrition: {
         calories: '350 kcal',

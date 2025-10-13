@@ -25,10 +25,10 @@ import { Badge } from '@/components/ui/badge';
 export default function Dashboard() {
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-      <div className="flex items-center justify-between space-y-2">
+      <div className="flex items-center justify-between space-y-2 flex-wrap">
         <h1 className="text-3xl font-bold tracking-tight">Painel</h1>
       </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Treinos Esta Semana</CardTitle>
@@ -71,7 +71,7 @@ export default function Dashboard() {
         </Card>
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="col-span-4">
+        <Card className="col-span-full lg:col-span-4">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Activity /> Atividade Recente
@@ -108,7 +108,7 @@ export default function Dashboard() {
             </Button>
           </CardFooter>
         </Card>
-        <Card className="col-span-4 lg:col-span-3">
+        <Card className="col-span-full lg:col-span-3">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Target /> Progresso das Metas
