@@ -1,4 +1,6 @@
 
+'use client';
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -33,7 +35,7 @@ export default function PlansPage() {
             (p) => p.id === plan.coverImageId
           );
           return (
-            <Card key={plan.slug} className="overflow-hidden flex flex-col transition-all duration-300 hover:scale-105 hover:shadow-xl">
+            <Card key={plan.slug} className="overflow-hidden flex flex-col">
               <CardHeader className="p-0">
                 {coverImage && (
                   <div className="aspect-video relative">
