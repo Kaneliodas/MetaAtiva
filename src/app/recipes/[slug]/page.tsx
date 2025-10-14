@@ -43,12 +43,12 @@ export default async function RecipeDetailPage({ params }: { params: { slug: str
               </div>
           </div>
         </div>
-        <div className="flex gap-2">
-            <Button variant="outline">
+        <div className="flex gap-2 w-full sm:w-auto">
+            <Button variant="outline" className="flex-1">
                 <Heart className="mr-2 h-4 w-4" />
                 Favoritar
             </Button>
-            <Button>
+            <Button className="flex-1">
                 <BookCheck className="mr-2 h-4 w-4" />
                 Registrar Refeição
             </Button>

@@ -97,7 +97,7 @@ export default function LogPage() {
           <div className="flex gap-2">
             <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
                 <DialogTrigger asChild>
-                    <Button>
+                    <Button className="w-full md:w-auto">
                         <Plus className="mr-2 h-4 w-4" />
                         Registrar Treino
                     </Button>
