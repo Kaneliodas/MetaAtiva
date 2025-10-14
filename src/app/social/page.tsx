@@ -31,11 +31,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import { cn } from "@/lib/utils";
 
-type Post = (typeof initialSocialFeed)[0];
+type Post = (typeof initialSocialFeed)[0] & { isLiked?: boolean };
+
 
 export default function SocialPage() {
-    const [socialFeed, setSocialFeed] = useState(initialSocialFeed);
+    const [socialFeed, setSocialFeed] = useState<Post[]>(initialSocialFeed.map(p => ({ ...p, isLiked: false })));
     const [newPostText, setNewPostText] = useState('');
     const currentUserAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar-3');
     const [postToDelete, setPostToDelete] = useState<number | null>(null);
@@ -43,14 +45,15 @@ export default function SocialPage() {
     const handleCreatePost = () => {
         if (newPostText.trim() === '') return;
 
-        const newPost = {
+        const newPost: Post = {
             id: Date.now(),
             user: { name: 'Você', avatarId: 'user-avatar-3' },
             time: 'agora mesmo',
             text: newPostText,
             image: null,
             likes: 0,
-            comments: 0
+            comments: 0,
+            isLiked: false
         };
 
         setSocialFeed([newPost, ...socialFeed]);
@@ -63,6 +66,19 @@ export default function SocialPage() {
             setPostToDelete(null);
         }
     };
+    
+    const handleLikeClick = (postId: number) => {
+        setSocialFeed(
+            socialFeed.map(post => {
+                if (post.id === postId) {
+                    const isLiked = !post.isLiked;
+                    const likes = isLiked ? post.likes + 1 : post.likes - 1;
+                    return { ...post, isLiked, likes };
+                }
+                return post;
+            })
+        )
+    }
 
 
   return (
@@ -158,8 +174,8 @@ export default function SocialPage() {
                 )}
               </CardContent>
               <CardFooter className="p-2 bg-muted/50 flex justify-around">
-                <Button variant="ghost" className="flex-1">
-                  <Heart className="mr-2 h-4 w-4" />
+                <Button variant="ghost" className="flex-1" onClick={() => handleLikeClick(post.id)}>
+                  <Heart className={cn("mr-2 h-4 w-4", post.isLiked && "fill-red-500 text-red-500")} />
                   {post.likes}
                 </Button>
                 <Button variant="ghost" className="flex-1">
