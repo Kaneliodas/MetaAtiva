@@ -4,6 +4,7 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import { AppLayout } from '@/components/app-layout';
 import { Toaster } from '@/components/ui/toaster';
+import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
   title: 'MetaAtiva',
@@ -16,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className="">
+    <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -26,8 +27,15 @@ export default function RootLayout({
         />
       </head>
       <body className={cn('font-body antialiased min-h-screen bg-background')}>
-        <AppLayout>{children}</AppLayout>
-        <Toaster />
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+        >
+            <AppLayout>{children}</AppLayout>
+            <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
@@ -5,17 +6,30 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+import { useTheme } from "next-themes";
 
 export default function AccountSettings() {
+  const { theme, setTheme } = useTheme();
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Conta</CardTitle>
         <CardDescription>
-          Gerencie as configurações da sua conta.
+          Gerencie as configurações da sua conta e preferências de tema.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
+        <div className="space-y-2">
+            <Label>Tema</Label>
+             <div className="flex items-center justify-between rounded-lg border p-3">
+                <p className="text-sm">Modo Escuro</p>
+                <Switch
+                    checked={theme === 'dark'}
+                    onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
+                />
+            </div>
+        </div>
         <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input id="email" type="email" defaultValue="usuario@email.com" disabled />
