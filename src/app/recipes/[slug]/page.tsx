@@ -62,26 +62,28 @@ export default async function RecipeDetailPage({ params }: { params: { slug: str
               <CardHeader>
                 <CardTitle>Análise Nutricional</CardTitle>
               </CardHeader>
-              <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                <div className="p-2 bg-muted rounded-lg">
-                  <Flame className="mx-auto h-6 w-6 mb-1 text-red-500" />
-                  <p className="font-bold text-lg">{recipe.nutrition.calories}</p>
-                  <p className="text-xs text-muted-foreground">Calorias</p>
-                </div>
-                <div className="p-2 bg-muted rounded-lg">
-                  <Beef className="mx-auto h-6 w-6 mb-1 text-blue-500" />
-                  <p className="font-bold text-lg">{recipe.nutrition.protein}</p>
-                  <p className="text-xs text-muted-foreground">Proteínas</p>
-                </div>
-                <div className="p-2 bg-muted rounded-lg">
-                  <Wheat className="mx-auto h-6 w-6 mb-1 text-yellow-500" />
-                  <p className="font-bold text-lg">{recipe.nutrition.carbs}</p>
-                  <p className="text-xs text-muted-foreground">Carbs</p>
-                </div>
-                <div className="p-2 bg-muted rounded-lg">
-                  <Carrot className="mx-auto h-6 w-6 mb-1 text-green-500" />
-                  <p className="font-bold text-lg">{recipe.nutrition.fat}</p>
-                  <p className="text-xs text-muted-foreground">Gorduras</p>
+              <CardContent>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div className="p-2 bg-muted rounded-lg">
+                    <Flame className="mx-auto h-6 w-6 mb-1 text-red-500" />
+                    <p className="font-bold text-lg">{recipe.nutrition.calories}</p>
+                    <p className="text-xs text-muted-foreground">Calorias</p>
+                    </div>
+                    <div className="p-2 bg-muted rounded-lg">
+                    <Beef className="mx-auto h-6 w-6 mb-1 text-blue-500" />
+                    <p className="font-bold text-lg">{recipe.nutrition.protein}</p>
+                    <p className="text-xs text-muted-foreground">Proteínas</p>
+                    </div>
+                    <div className="p-2 bg-muted rounded-lg">
+                    <Wheat className="mx-auto h-6 w-6 mb-1 text-yellow-500" />
+                    <p className="font-bold text-lg">{recipe.nutrition.carbs}</p>
+                    <p className="text-xs text-muted-foreground">Carbs</p>
+                    </div>
+                    <div className="p-2 bg-muted rounded-lg">
+                    <Carrot className="mx-auto h-6 w-6 mb-1 text-green-500" />
+                    <p className="font-bold text-lg">{recipe.nutrition.fat}</p>
+                    <p className="text-xs text-muted-foreground">Gorduras</p>
+                    </div>
                 </div>
               </CardContent>
             </Card>
