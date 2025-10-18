@@ -168,6 +168,24 @@ export const socialFeed = [
         likes: 15,
         comments: [],
     },
+    {
+        id: 4,
+        user: { name: 'Carlos S.', avatarId: 'user-avatar-4' },
+        time: 'há 4 dias',
+        text: 'Preparei esta receita de Salada de Quinoa. Ficou fantástica!',
+        image: { id: 'social-post-3' },
+        likes: 76,
+        comments: [],
+    },
+    {
+        id: 5,
+        user: { name: 'Juliana P.', avatarId: 'user-avatar-5' },
+        time: 'há 5 dias',
+        text: 'Primeiro dia do plano "Iniciante Corpo Inteiro". Desafiodor, mas me sentindo ótima!',
+        image: null,
+        likes: 31,
+        comments: [],
+    }
 ];
 
 export const exerciseLog = [

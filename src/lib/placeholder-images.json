@@ -19,6 +19,18 @@
       "imageHint": "person icon"
     },
     {
+      "id": "user-avatar-4",
+      "description": "Avatar for user Carlos S.",
+      "imageUrl": "https://images.unsplash.com/photo-1594672830234-ba4cfe1202dc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bWFuJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzYwNzMwOTQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man portrait"
+    },
+    {
+      "id": "user-avatar-5",
+      "description": "Avatar for user Juliana P.",
+      "imageUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx3b21hbiUyMHBvcnRyYWl0fGVufDB8fHx8MTc2MDczMDk0Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman portrait"
+    },
+    {
       "id": "social-post-1",
       "description": "Image of a person running at sunset.",
       "imageUrl": "https://images.unsplash.com/photo-1601549581930-51b14319ad25?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxydW5uaW5nJTIwc3Vuc2V0fGVufDB8fHx8MTc2MDczNTIzMHww&ixlib=rb-4.1.0&q=80&w=1080",
@@ -29,6 +41,12 @@
       "description": "Image of a person doing yoga.",
       "imageUrl": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx5b2dhJTIwbmF0dXJlfGVufDB8fHx8MTc2MDc5MzA1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "yoga nature"
+    },
+    {
+      "id": "social-post-3",
+      "description": "Image of the Quinoa Salad recipe.",
+      "imageUrl": "https://images.unsplash.com/photo-1547496502-affa22d38842?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cXVpbm9hJTIwc2FsYWR8ZW58MHx8fHwxNzYwNzQwMTQyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "quinoa salad"
     },
     {
       "id": "plan-cover-1",
