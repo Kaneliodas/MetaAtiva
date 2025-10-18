@@ -143,7 +143,10 @@ export const socialFeed = [
         text: 'Acabei de bater meu recorde pessoal nos 5k! Sensação incrível. O novo plano de treino está realmente valendo a pena. #corrida #fitness #metas',
         image: { id: 'social-post-1' },
         likes: 42,
-        comments: 5
+        comments: [
+            { id: 1, user: { name: 'Maria G.', avatarId: 'user-avatar-2' }, text: 'Parabéns Alex! Continue assim!' },
+            { id: 2, user: { name: 'Você', avatarId: 'user-avatar-3' }, text: 'Incrível! 💪' },
+        ],
     },
     {
         id: 2,
@@ -152,7 +155,9 @@ export const socialFeed = [
         text: 'Sessão de yoga matinal para começar o dia bem. Encontrei meu zen. 🙏',
         image: { id: 'social-post-2' },
         likes: 128,
-        comments: 12
+        comments: [
+            { id: 1, user: { name: 'Alex T.', avatarId: 'user-avatar-1' }, text: 'Que foto linda!' },
+        ],
     },
     {
         id: 3,
@@ -161,7 +166,7 @@ export const socialFeed = [
         text: 'Novo recorde no supino hoje! Lenta e constantemente ficando mais forte.',
         image: null,
         likes: 15,
-        comments: 2
+        comments: [],
     },
 ];
 

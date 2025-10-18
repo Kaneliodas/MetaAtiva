@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { socialFeed as initialSocialFeed } from "@/lib/data";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Heart, MessageCircle, MoreHorizontal, Send, Share2, Trash2 } from "lucide-react";
+import { Heart, MessageCircle, MoreHorizontal, Send, Share2, Trash2, X } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import {
@@ -32,15 +32,20 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { cn } from "@/lib/utils";
+import { Separator } from "@/components/ui/separator";
 
-type Post = (typeof initialSocialFeed)[0] & { isLiked?: boolean };
+type Comment = { id: number; user: { name: string, avatarId: string }, text: string };
+type Post = (typeof initialSocialFeed)[0] & { isLiked?: boolean; comments: Comment[] };
 
 
 export default function SocialPage() {
-    const [socialFeed, setSocialFeed] = useState<Post[]>(initialSocialFeed.map(p => ({ ...p, isLiked: false })));
+    const [socialFeed, setSocialFeed] = useState<Post[]>(initialSocialFeed.map(p => ({ ...p, isLiked: false, comments: p.comments || [] })));
     const [newPostText, setNewPostText] = useState('');
     const currentUserAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar-3');
     const [postToDelete, setPostToDelete] = useState<number | null>(null);
+    const [openCommentsPostId, setOpenCommentsPostId] = useState<number | null>(null);
+    const [newCommentText, setNewCommentText] = useState('');
+
 
     const handleCreatePost = () => {
         if (newPostText.trim() === '') return;
@@ -52,7 +57,7 @@ export default function SocialPage() {
             text: newPostText,
             image: null,
             likes: 0,
-            comments: 0,
+            comments: [],
             isLiked: false
         };
 
@@ -79,6 +84,35 @@ export default function SocialPage() {
             })
         )
     }
+    
+    const handleToggleComments = (postId: number) => {
+        setOpenCommentsPostId(prevId => (prevId === postId ? null : postId));
+        setNewCommentText('');
+    };
+
+    const handleAddComment = (postId: number) => {
+        if (newCommentText.trim() === '') return;
+        
+        const newComment: Comment = {
+            id: Date.now(),
+            user: { name: 'Você', avatarId: 'user-avatar-3' },
+            text: newCommentText,
+        };
+
+        setSocialFeed(
+            socialFeed.map(post => {
+                if (post.id === postId) {
+                    return {
+                        ...post,
+                        comments: [...post.comments, newComment],
+                    };
+                }
+                return post;
+            })
+        );
+
+        setNewCommentText('');
+    };
 
 
   return (
@@ -175,18 +209,58 @@ export default function SocialPage() {
               </CardContent>
               <CardFooter className="p-2 bg-muted/50 flex justify-around">
                 <Button variant="ghost" className="flex-1" onClick={() => handleLikeClick(post.id)}>
-                  <Heart className={cn("mr-2 h-4 w-4", post.isLiked && "fill-red-500 text-red-500")} />
+                  <Heart className={cn("mr-2 h-4 w-4", post.isLiked && "fill-destructive text-destructive")} />
                   {post.likes}
                 </Button>
-                <Button variant="ghost" className="flex-1">
+                <Button variant="ghost" className="flex-1" onClick={() => handleToggleComments(post.id)}>
                   <MessageCircle className="mr-2 h-4 w-4" />
-                  {post.comments}
+                  {post.comments.length}
                 </Button>
                 <Button variant="ghost" className="flex-1">
                   <Share2 className="mr-2 h-4 w-4" />
                   Compartilhar
                 </Button>
               </CardFooter>
+              
+               {openCommentsPostId === post.id && (
+                  <div className="p-4 border-t">
+                    {/* Add Comment Input */}
+                    <div className="flex items-center gap-2 mb-4">
+                      <Avatar className="h-8 w-8">
+                        {currentUserAvatar && <AvatarImage src={currentUserAvatar.imageUrl} alt="Seu avatar" data-ai-hint={currentUserAvatar.imageHint} />}
+                        <AvatarFallback>MA</AvatarFallback>
+                      </Avatar>
+                      <Input
+                        placeholder="Escreva um comentário..."
+                        value={newCommentText}
+                        onChange={(e) => setNewCommentText(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleAddComment(post.id)}
+                      />
+                      <Button onClick={() => handleAddComment(post.id)}>Enviar</Button>
+                    </div>
+
+                    <Separator className="my-4" />
+
+                    {/* Comments List */}
+                    <div className="space-y-4">
+                      {post.comments.length > 0 ? post.comments.map(comment => {
+                        const commentUserAvatar = PlaceHolderImages.find(p => p.id === comment.user.avatarId);
+                        return (
+                          <div key={comment.id} className="flex items-start gap-3">
+                             <Avatar className="h-8 w-8">
+                                {commentUserAvatar && <AvatarImage src={commentUserAvatar.imageUrl} alt={comment.user.name} data-ai-hint={commentUserAvatar.imageHint} />}
+                                <AvatarFallback>{comment.user.name.charAt(0)}</AvatarFallback>
+                            </Avatar>
+                            <div className="flex-1">
+                              <p className="text-sm font-semibold">{comment.user.name}</p>
+                              <p className="text-sm text-muted-foreground">{comment.text}</p>
+                            </div>
+                          </div>
+                        )
+                      }) : <p className="text-sm text-muted-foreground text-center">Nenhum comentário ainda. Seja o primeiro!</p>}
+                    </div>
+                  </div>
+                )}
             </Card>
           );
         })}
