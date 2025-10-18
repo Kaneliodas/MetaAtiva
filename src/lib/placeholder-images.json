@@ -3,67 +3,67 @@
     {
       "id": "user-avatar-1",
       "description": "Avatar for user Alex T.",
-      "imageUrl": "https://picsum.photos/seed/101/100/100",
-      "imageHint": "man portrait"
+      "imageUrl": "https://images.unsplash.com/photo-1632265345756-82fd1940024a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGVyc29uJTIwaWNvbnxlbnwwfHx8fDE3NjA4Mjg0ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person icon"
     },
     {
       "id": "user-avatar-2",
       "description": "Avatar for user Maria G.",
-      "imageUrl": "https://picsum.photos/seed/102/100/100",
-      "imageHint": "woman portrait"
+      "imageUrl": "https://images.unsplash.com/photo-1740979142180-c7aba7a038f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwZXJzb24lMjBpY29ufGVufDB8fHx8MTc2MDgyODQ4MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person icon"
     },
     {
       "id": "user-avatar-3",
       "description": "Avatar for the current user.",
-      "imageUrl": "https://picsum.photos/seed/103/100/100",
-      "imageHint": "person gym"
+      "imageUrl": "https://images.unsplash.com/photo-1632265345756-82fd1940024a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGVyc29uJTIwaWNvbnxlbnwwfHx8fDE3NjA4Mjg0ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person icon"
     },
     {
       "id": "social-post-1",
       "description": "Image of a person running at sunset.",
-      "imageUrl": "https://picsum.photos/seed/201/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1601549581930-51b14319ad25?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxydW5uaW5nJTIwc3Vuc2V0fGVufDB8fHx8MTc2MDczNTIzMHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "running sunset"
     },
     {
       "id": "social-post-2",
       "description": "Image of a person doing yoga.",
-      "imageUrl": "https://picsum.photos/seed/202/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx5b2dhJTIwbmF0dXJlfGVufDB8fHx8MTc2MDc5MzA1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "yoga nature"
     },
     {
       "id": "plan-cover-1",
       "description": "Cover image for beginner full body plan.",
-      "imageUrl": "https://picsum.photos/seed/301/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1577221084712-45b0445d2b00?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxneW0lMjB3b3Jrb3V0fGVufDB8fHx8MTc2MDc0MzI0N3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "gym workout"
     },
     {
       "id": "plan-cover-2",
       "description": "Cover image for intermediate push/pull/legs plan.",
-      "imageUrl": "https://picsum.photos/seed/302/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1682530679402-77e1ba921f12?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx3ZWlnaHRsaWZ0aW5nJTIwaW50ZW5zZXxlbnwwfHx8fDE3NjA4Mjg0ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "weightlifting intense"
     },
     {
       "id": "plan-cover-3",
       "description": "Cover image for cardio blast plan.",
-      "imageUrl": "https://picsum.photos/seed/303/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1668315941980-3869499cdab6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxydW5uaW5nJTIwdHJhY2t8ZW58MHx8fHwxNzYwNzMzNjA5fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "running track"
     },
     {
       "id": "recipe-cover-1",
       "description": "Cover image for Quinoa Salad with Grilled Chicken.",
-      "imageUrl": "https://picsum.photos/seed/401/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1623428188474-b1d532c5e560?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxxdWlub2ElMjBzYWxhZHxlbnwwfHx8fDE3NjA3NDAxNDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "quinoa salad"
     },
     {
       "id": "recipe-cover-2",
       "description": "Cover image for Energetic Green Smoothie.",
-      "imageUrl": "https://picsum.photos/seed/402/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1577593955244-55c972445c20?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxncmVlbiUyMHNtb290aGllfGVufDB8fHx8MTc2MDczNzYxNHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "green smoothie"
     },
     {
       "id": "recipe-cover-3",
       "description": "Cover image for Oatmeal and Banana Pancakes.",
-      "imageUrl": "https://picsum.photos/seed/403/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1620280641611-1b444bf9f9b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwYW5jYWtlcyUyMGJyZWFrZmFzdHxlbnwwfHx8fDE3NjA3Mzc3MzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "pancakes breakfast"
     }
   ]
