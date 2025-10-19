@@ -28,6 +28,13 @@ import React, { useState, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 
 type DailyChallenge = typeof initialTrainingChallenges.daily;
@@ -40,6 +47,7 @@ export default function TrainingRoomPage() {
   const [selectedChallenge, setSelectedChallenge] = useState<WeeklyChallenge | null>(null);
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
   const [newProgress, setNewProgress] = useState(0);
+  const [selectedMonth, setSelectedMonth] = useState('all');
 
   const { monthlyProgress, totalPoints } = useMemo(() => {
     const completedChallenges = challengeHistory.filter(c => c.status === 'Concluído').length;
@@ -70,6 +78,25 @@ export default function TrainingRoomPage() {
   };
   
   const isDailyChallengeCompleted = dailyChallenge.currentProgress >= 100;
+
+  const monthOptions = useMemo(() => {
+    const months = new Set<string>();
+    challengeHistory.forEach(item => {
+      const [day, month, year] = item.date.split('/');
+      months.add(`${month}/${year}`);
+    });
+    return Array.from(months);
+  }, []);
+  
+  const filteredHistory = useMemo(() => {
+    if (selectedMonth === 'all') {
+      return challengeHistory;
+    }
+    return challengeHistory.filter(item => {
+      const [day, month, year] = item.date.split('/');
+      return `${month}/${year}` === selectedMonth;
+    })
+  }, [selectedMonth]);
 
   return (
     <div className="flex-1 space-y-6 p-4 md:p-8 pt-6">
@@ -115,7 +142,7 @@ export default function TrainingRoomPage() {
           </CardTitle>
           <CardDescription>{dailyChallenge.title}</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent>
           <p className="text-lg">{dailyChallenge.details}</p>
         </CardContent>
         <CardFooter className="flex justify-between items-center">
@@ -226,13 +253,28 @@ export default function TrainingRoomPage() {
       {/* Challenge History */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <History />
-            Histórico de Desafios
-          </CardTitle>
-          <CardDescription>
-            Seu desempenho nos desafios anteriores.
-          </CardDescription>
+           <div className="flex items-center justify-between">
+            <div>
+                <CardTitle className="flex items-center gap-2">
+                    <History />
+                    Histórico de Desafios
+                </CardTitle>
+                <CardDescription>
+                    Seu desempenho nos desafios anteriores.
+                </CardDescription>
+            </div>
+            <Select value={selectedMonth} onValueChange={setSelectedMonth}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Filtrar por mês" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Todos os Meses</SelectItem>
+                {monthOptions.map(month => (
+                  <SelectItem key={month} value={month}>{month}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </CardHeader>
         <CardContent>
           <Table>
@@ -245,7 +287,7 @@ export default function TrainingRoomPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {challengeHistory.map((item) => (
+              {filteredHistory.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell>{item.date}</TableCell>
                   <TableCell className="font-medium">{item.title}</TableCell>
