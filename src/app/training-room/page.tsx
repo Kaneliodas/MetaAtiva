@@ -22,7 +22,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Progress } from "@/components/ui/progress";
-import { trainingChallenges as initialTrainingChallenges, challengeHistory as initialChallengeHistory } from "@/lib/data";
+import { trainingChallenges as initialTrainingChallenges, challengeHistory as initialChallengeHistory, weeklyChallengesPool } from "@/lib/data";
 import { Flame, Star, Zap, CheckCircle2, History, TrendingUp, Trophy } from "lucide-react";
 import React, { useState, useMemo, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
@@ -38,7 +38,7 @@ import {
 
 
 type DailyChallenge = typeof initialTrainingChallenges.daily;
-type WeeklyChallenge = typeof initialTrainingChallenges.weekly[0];
+type WeeklyChallenge = (typeof initialTrainingChallenges.weekly)[0];
 type ChallengeHistoryItem = typeof initialChallengeHistory[0];
 
 
@@ -70,9 +70,7 @@ export default function TrainingRoomPage() {
   }, [challengeHistory]);
 
   const handleCompleteDailyChallenge = () => {
-    if (dailyChallenge.currentProgress < 100) {
-      setDailyChallenge({ ...dailyChallenge, currentProgress: 100 });
-      
+    if (!dailyChallenge.isCompleted) {
       const newHistoryItem: ChallengeHistoryItem = {
         id: Date.now(),
         date: new Date().toLocaleDateString('pt-BR'),
@@ -81,6 +79,7 @@ export default function TrainingRoomPage() {
         points: parseInt(dailyChallenge.reward.split(' ')[0]),
       };
       setChallengeHistory([newHistoryItem, ...challengeHistory]);
+      setDailyChallenge({ ...dailyChallenge, isCompleted: true });
     }
   };
   
@@ -92,36 +91,51 @@ export default function TrainingRoomPage() {
 
   const handleSaveChanges = () => {
     if (selectedChallenge) {
-      const updatedChallenges = weeklyChallenges.map(challenge =>
-        challenge.id === selectedChallenge.id ? { ...challenge, current: newProgress } : challenge
-      );
-      setWeeklyChallenges(updatedChallenges);
+      const isCompleted = newProgress >= selectedChallenge.target;
+      
+      if (isCompleted) {
+         // Add to history
+        const newHistoryItem: ChallengeHistoryItem = {
+          id: Date.now(),
+          challengeId: selectedChallenge.id,
+          date: new Date().toLocaleDateString('pt-BR'),
+          title: selectedChallenge.title,
+          status: 'Concluído',
+          points: parseInt(selectedChallenge.reward.split(' ')[0]),
+        };
+        setChallengeHistory(prev => [newHistoryItem, ...prev]);
 
-      // Check if the challenge is now completed
-      if (newProgress >= selectedChallenge.target) {
-        // Avoid adding duplicate history entries if it's already completed and in history
-        const challengeInHistory = challengeHistory.find(
-          (item) => item.challengeId === selectedChallenge.id
+        // Replace the challenge
+        const getNewChallenge = () => {
+          const currentChallengeIds = weeklyChallenges.map(c => c.id);
+          const availableChallenges = weeklyChallengesPool.filter(
+            (p) => !currentChallengeIds.includes(p.id)
+          );
+          if (availableChallenges.length > 0) {
+            return availableChallenges[Math.floor(Math.random() * availableChallenges.length)];
+          }
+          // Return a generic one if pool is exhausted or handle as needed
+          return weeklyChallengesPool[0]; 
+        };
+
+        const newChallenge = getNewChallenge();
+        setWeeklyChallenges(prev => 
+          prev.map(c => c.id === selectedChallenge.id ? newChallenge : c)
         );
 
-        if (!challengeInHistory) {
-          const newHistoryItem: ChallengeHistoryItem = {
-            id: Date.now(),
-            challengeId: selectedChallenge.id,
-            date: new Date().toLocaleDateString('pt-BR'),
-            title: selectedChallenge.title,
-            status: 'Concluído',
-            points: parseInt(selectedChallenge.reward.split(' ')[0]),
-          };
-          setChallengeHistory([newHistoryItem, ...challengeHistory]);
-        }
+      } else {
+         // Just update the progress
+         const updatedChallenges = weeklyChallenges.map(challenge =>
+          challenge.id === selectedChallenge.id ? { ...challenge, current: newProgress } : challenge
+        );
+        setWeeklyChallenges(updatedChallenges);
       }
     }
     setIsUpdateDialogOpen(false);
     setSelectedChallenge(null);
   };
   
-  const isDailyChallengeCompleted = dailyChallenge.currentProgress >= 100;
+  const isDailyChallengeCompleted = dailyChallenge.isCompleted;
 
   const monthOptions = useMemo(() => {
     const months = new Set<string>();

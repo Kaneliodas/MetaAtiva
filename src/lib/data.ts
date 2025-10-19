@@ -138,25 +138,25 @@ export const trainingPlans = [
 export const socialFeed = [
     {
         id: 1,
-        user: { name: 'Alex T.', avatarId: 'user-avatar-1' },
+        user: { name: 'Alex T.', avatarId: 'user-avatar-base' },
         time: 'há 2 horas',
         text: 'Acabei de bater meu recorde pessoal nos 5k! Sensação incrível. O novo plano de treino está realmente valendo a pena. #corrida #fitness #metas',
         image: { id: 'social-post-1' },
         likes: 42,
         comments: [
-            { id: 1, user: { name: 'Maria G.', avatarId: 'user-avatar-2' }, text: 'Parabéns Alex! Continue assim!' },
+            { id: 1, user: { name: 'Maria G.', avatarId: 'user-avatar-base' }, text: 'Parabéns Alex! Continue assim!' },
             { id: 2, user: { name: 'Você', avatarId: 'user-avatar-base' }, text: 'Incrível! 💪' },
         ],
     },
     {
         id: 2,
-        user: { name: 'Maria G.', avatarId: 'user-avatar-2' },
+        user: { name: 'Maria G.', avatarId: 'user-avatar-base' },
         time: 'há 1 dia',
         text: 'Sessão de yoga matinal para começar o dia bem. Encontrei meu zen. 🙏',
         image: { id: 'social-post-2' },
         likes: 128,
         comments: [
-            { id: 1, user: { name: 'Alex T.', avatarId: 'user-avatar-1' }, text: 'Que foto linda!' },
+            { id: 1, user: { name: 'Alex T.', avatarId: 'user-avatar-base' }, text: 'Que foto linda!' },
         ],
     },
     {
@@ -297,34 +297,63 @@ export const recipes = [
 
 export const trainingChallenges = {
   daily: {
-    id: 1,
-    title: "Desafio de Supino",
-    exercise: "Supino",
-    details: "Complete 3 séries de 10 repetições com 65kg.",
-    currentProgress: 0,
-    reward: "10 pontos de XP",
+    id: 101,
+    title: "Desafio de Flexões",
+    details: "Faça 50 flexões (pode ser dividido em séries).",
+    reward: "10 pontos",
+    isCompleted: false,
   },
   weekly: [
     {
-      id: 1,
+      id: 201,
       title: "Consistência Semanal",
       details: "Registre pelo menos 3 treinos esta semana.",
-      current: 2,
+      current: 1,
       target: 3,
       unit: "treinos",
-      reward: "50 pontos de XP",
+      reward: "50 pontos",
     },
     {
-      id: 2,
+      id: 202,
       title: "Mestre do Agachamento",
-      details: "Aumente seu peso no agachamento em 5kg em relação à semana passada.",
-      current: 82,
-      target: 85,
+      details: "Agache com um total de 1000kg (séries x reps x peso).",
+      current: 0,
+      target: 1000,
       unit: "kg",
-      reward: "75 pontos de XP",
+      reward: "75 pontos",
     },
   ],
 };
+
+export const weeklyChallengesPool = [
+    {
+      id: 301,
+      title: "Rei da Barra Fixa",
+      details: "Complete 50 repetições de barra fixa na semana.",
+      current: 0,
+      target: 50,
+      unit: "reps",
+      reward: "80 pontos",
+    },
+    {
+      id: 302,
+      title: "Maratonista de Esteira",
+      details: "Corra um total de 21km na esteira esta semana.",
+      current: 0,
+      target: 21,
+      unit: "km",
+      reward: "100 pontos",
+    },
+    {
+      id: 303,
+      title: "Guerreiro do HIIT",
+      details: "Faça 2 sessões de treino HIIT de 20 minutos.",
+      current: 0,
+      target: 2,
+      unit: "sessões",
+      reward: "60 pontos",
+    },
+];
     
 export const challengeHistory = [
   // Mês Atual
