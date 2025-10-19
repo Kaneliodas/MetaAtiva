@@ -11,13 +11,37 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { trainingPlans } from "@/lib/data";
+import { trainingPlans as initialTrainingPlans } from "@/lib/data";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 
 export default function PlansPage() {
+  const [trainingPlans, setTrainingPlans] = useState(initialTrainingPlans);
+  const [isAddPlanDialogOpen, setIsAddPlanDialogOpen] = useState(false);
+
   return (
     <div className="flex-1 space-y-6 p-4 md:p-8 pt-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
@@ -27,7 +51,63 @@ export default function PlansPage() {
             Planos selecionados para ajudá-lo a alcançar seus objetivos de fitness.
           </p>
         </div>
-        <Button variant="outline">Criar Plano Personalizado</Button>
+        <Dialog open={isAddPlanDialogOpen} onOpenChange={setIsAddPlanDialogOpen}>
+          <DialogTrigger asChild>
+            <Button variant="outline">
+              <Plus className="mr-2 h-4 w-4" />
+              Criar Plano Personalizado
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Criar Plano Personalizado</DialogTitle>
+              <DialogDescription>
+                Preencha os detalhes para criar seu próprio plano de treino.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="plan-title" className="text-right">
+                  Título
+                </Label>
+                <Input id="plan-title" placeholder="Ex: Força Total" className="col-span-3" />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="plan-description" className="text-right">
+                  Descrição
+                </Label>
+                <Textarea id="plan-description" placeholder="Uma breve descrição do seu plano." className="col-span-3" />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="plan-level" className="text-right">
+                  Nível
+                </Label>
+                <Select>
+                    <SelectTrigger className="col-span-3">
+                        <SelectValue placeholder="Selecione o nível" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="iniciante">Iniciante</SelectItem>
+                        <SelectItem value="intermediario">Intermediário</SelectItem>
+                        <SelectItem value="avancado">Avançado</SelectItem>
+                        <SelectItem value="todos">Todos os Níveis</SelectItem>
+                    </SelectContent>
+                </Select>
+              </div>
+               <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="plan-schedule" className="text-right">
+                  Cronograma
+                </Label>
+                <Textarea id="plan-schedule" placeholder="Ex: Dia 1: Peito e Tríceps..." className="col-span-3" rows={5} />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button type="submit" onClick={() => setIsAddPlanDialogOpen(false)}>
+                Salvar Plano
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {trainingPlans.map((plan) => {
