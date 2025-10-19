@@ -112,7 +112,7 @@ export default function PlansPage() {
 
   return (
     <div className="flex-1 space-y-6 p-4 md:p-8 pt-6">
-      <div className="flex items-center justify-between flex-wrap gap-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Planos de Treino</h1>
           <p className="text-muted-foreground">
@@ -121,7 +121,7 @@ export default function PlansPage() {
         </div>
         <Dialog open={isAddPlanDialogOpen} onOpenChange={setIsAddPlanDialogOpen}>
           <DialogTrigger asChild>
-            <Button variant="outline">
+            <Button variant="outline" className="w-full sm:w-auto">
               <Plus className="mr-2 h-4 w-4" />
               Criar Plano Personalizado
             </Button>
@@ -206,7 +206,7 @@ export default function PlansPage() {
           </DialogContent>
         </Dialog>
       </div>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {trainingPlans.map((plan) => {
           const coverImage = PlaceHolderImages.find(
             (p) => p.id === plan.coverImageId

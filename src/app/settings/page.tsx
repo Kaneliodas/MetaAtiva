@@ -15,7 +15,7 @@ export default function SettingsPage() {
         </p>
       </div>
       <Tabs defaultValue="profile" className="w-full space-y-4">
-        <TabsList className="grid w-full grid-cols-2 md:w-[400px]">
+        <TabsList className="grid w-full grid-cols-1 md:w-[400px] md:grid-cols-2">
           <TabsTrigger value="profile">Perfil</TabsTrigger>
           <TabsTrigger value="account">Conta</TabsTrigger>
         </TabsList>

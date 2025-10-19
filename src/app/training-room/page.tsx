@@ -35,6 +35,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 
 type DailyChallenge = typeof initialTrainingChallenges.daily;
@@ -236,7 +237,7 @@ export default function TrainingRoomPage() {
       {/* Weekly Challenges */}
       <div>
         <h2 className="text-2xl font-bold tracking-tight mb-4">Desafios Semanais</h2>
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
           {weeklyChallenges.map((challenge) => {
             const progress = Math.min(100, (challenge.current / challenge.target) * 100);
             const isCompleted = challenge.current >= challenge.target;
@@ -325,7 +326,7 @@ export default function TrainingRoomPage() {
       {/* Challenge History */}
       <Card>
         <CardHeader>
-           <div className="flex items-center justify-between flex-wrap gap-2">
+           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
             <div>
                 <CardTitle className="flex items-center gap-2">
                     <History />
@@ -349,36 +350,38 @@ export default function TrainingRoomPage() {
           </div>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Data</TableHead>
-                <TableHead>Desafio</TableHead>
-                <TableHead>Tipo</TableHead>
-                <TableHead>Pontos</TableHead>
-                <TableHead className="text-right">Status</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredHistory.map((item) => (
-                <TableRow key={item.id}>
-                  <TableCell>{item.date}</TableCell>
-                  <TableCell className="font-medium">{item.title}</TableCell>
-                  <TableCell>
-                    <Badge variant="outline">{item.type}</Badge>
-                  </TableCell>
-                  <TableCell className="font-semibold text-primary">{item.status === 'Concluído' ? `+${item.points}` : '-'}</TableCell>
-                  <TableCell className="text-right">
-                    <Badge variant="outline" className={cn(
-                      item.status === 'Concluído' ? "text-green-500 border-green-500/50" : "text-destructive border-destructive/50"
-                    )}>
-                      {item.status}
-                    </Badge>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+            <ScrollArea className="w-full whitespace-nowrap">
+                <Table>
+                    <TableHeader>
+                    <TableRow>
+                        <TableHead>Data</TableHead>
+                        <TableHead>Desafio</TableHead>
+                        <TableHead>Tipo</TableHead>
+                        <TableHead>Pontos</TableHead>
+                        <TableHead className="text-right">Status</TableHead>
+                    </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                    {filteredHistory.map((item) => (
+                        <TableRow key={item.id}>
+                        <TableCell>{item.date}</TableCell>
+                        <TableCell className="font-medium">{item.title}</TableCell>
+                        <TableCell>
+                            <Badge variant="outline">{item.type}</Badge>
+                        </TableCell>
+                        <TableCell className="font-semibold text-primary">{item.status === 'Concluído' ? `+${item.points}` : '-'}</TableCell>
+                        <TableCell className="text-right">
+                            <Badge variant="outline" className={cn(
+                            item.status === 'Concluído' ? "text-green-500 border-green-500/50" : "text-destructive border-destructive/50"
+                            )}>
+                            {item.status}
+                            </Badge>
+                        </TableCell>
+                        </TableRow>
+                    ))}
+                    </TableBody>
+                </Table>
+            </ScrollArea>
         </CardContent>
       </Card>
     </div>

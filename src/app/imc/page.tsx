@@ -85,7 +85,7 @@ export default function ImcPage() {
           </p>
         </div>
       </div>
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-6 grid-cols-1 lg:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Calculadora de IMC</CardTitle>

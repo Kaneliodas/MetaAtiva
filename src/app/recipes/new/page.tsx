@@ -69,7 +69,7 @@ export default function NewRecipePage() {
                      <div className="space-y-2">
                         <Label>Informação Nutricional (Opcional)</Label>
                         <Card className="p-4 bg-muted/50">
-                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                                 <Input placeholder="Calorias (kcal)" />
                                 <Input placeholder="Proteínas (g)" />
                                 <Input placeholder="Carboidratos (g)" />

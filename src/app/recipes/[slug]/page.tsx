@@ -22,9 +22,9 @@ export default async function RecipeDetailPage({ params }: { params: { slug: str
 
   return (
     <div className="flex-1 space-y-6 p-4 md:p-8 pt-6">
-      <div className="flex items-center justify-between flex-wrap gap-4">
-        <div>
-          <h1 className="text-4xl font-bold tracking-tight">{recipe.title}</h1>
+      <div className="flex flex-col md:flex-row items-start justify-between gap-4">
+        <div className="flex-1">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{recipe.title}</h1>
           <p className="mt-2 text-lg text-muted-foreground">
             {recipe.description}
           </p>
@@ -55,7 +55,7 @@ export default async function RecipeDetailPage({ params }: { params: { slug: str
         </div>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-3">
+      <div className="grid gap-8 grid-cols-1 md:grid-cols-3">
         <div className="md:col-span-2 space-y-6">
            {recipe.nutrition && (
             <Card>

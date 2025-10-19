@@ -91,14 +91,14 @@ export default function RecipesPage() {
 
   return (
     <div className="flex-1 space-y-6 p-4 md:p-8 pt-6">
-        <div className="flex items-center justify-between gap-4 flex-wrap">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Livro de Receitas</h1>
             <p className="text-muted-foreground">
               Inspirações saudáveis para potencializar seus resultados.
             </p>
           </div>
-          <Button asChild>
+          <Button asChild className="w-full sm:w-auto">
             <Link href="/recipes/new">
                 <Plus className="mr-2 h-4 w-4" />
                 Adicionar Receita
@@ -106,10 +106,10 @@ export default function RecipesPage() {
           </Button>
         </div>
 
-        <div className="flex items-center justify-between gap-2 flex-wrap">
-           <div className="flex gap-2 flex-wrap">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
+           <div className="flex gap-2 flex-wrap w-full sm:w-auto">
                 <Select value={mealType} onValueChange={setMealType}>
-                    <SelectTrigger className="w-full sm:w-[180px]">
+                    <SelectTrigger className="w-full sm:w-auto flex-1">
                         <SelectValue placeholder="Tipo de Refeição" />
                     </SelectTrigger>
                     <SelectContent>
@@ -121,7 +121,7 @@ export default function RecipesPage() {
                     </SelectContent>
                 </Select>
                 <Select value={difficulty} onValueChange={setDifficulty}>
-                    <SelectTrigger className="w-full sm:w-[180px]">
+                    <SelectTrigger className="w-full sm:w-auto flex-1">
                         <SelectValue placeholder="Dificuldade" />
                     </SelectTrigger>
                     <SelectContent>
@@ -132,7 +132,7 @@ export default function RecipesPage() {
                     </SelectContent>
                 </Select>
                  <Select value={prepTime} onValueChange={setPrepTime}>
-                    <SelectTrigger className="w-full sm:w-[180px]">
+                    <SelectTrigger className="w-full sm:w-auto flex-1">
                         <SelectValue placeholder="Tempo de Preparo" />
                     </SelectTrigger>
                     <SelectContent>
@@ -145,7 +145,7 @@ export default function RecipesPage() {
            </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="ml-auto">
+                <Button variant="outline" className="w-full sm:w-auto sm:ml-auto mt-2 sm:mt-0">
                   <SlidersHorizontal className="mr-2 h-4 w-4" />
                   Mais Filtros
                    {extraFilters.length > 0 && <Badge variant="secondary" className="ml-2">{extraFilters.length}</Badge>}
@@ -171,7 +171,7 @@ export default function RecipesPage() {
             </DropdownMenu>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {filteredRecipes.map((recipe) => {
             const coverImage = PlaceHolderImages.find(
               (p) => p.id === recipe.coverImageId
