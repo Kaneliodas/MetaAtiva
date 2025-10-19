@@ -10,6 +10,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Slider } from '@/components/ui/slider';
 import { Progress } from "@/components/ui/progress";
 import { trainingChallenges as initialTrainingChallenges } from "@/lib/data";
 import { Flame, Star, Zap, CheckCircle2 } from "lucide-react";
@@ -22,15 +33,30 @@ type WeeklyChallenge = typeof initialTrainingChallenges.weekly[0];
 export default function TrainingRoomPage() {
   const [dailyChallenge, setDailyChallenge] = useState<DailyChallenge>(initialTrainingChallenges.daily);
   const [weeklyChallenges, setWeeklyChallenges] = useState<WeeklyChallenge[]>(initialTrainingChallenges.weekly);
+  
+  const [selectedChallenge, setSelectedChallenge] = useState<WeeklyChallenge | null>(null);
+  const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
+  const [newProgress, setNewProgress] = useState(0);
 
   const handleCompleteDailyChallenge = () => {
     setDailyChallenge({ ...dailyChallenge, currentProgress: 100 });
   };
+  
+  const handleUpdateClick = (challenge: WeeklyChallenge) => {
+    setSelectedChallenge(challenge);
+    setNewProgress(challenge.current);
+    setIsUpdateDialogOpen(true);
+  };
 
-  const handleCompleteWeeklyChallenge = (challengeId: number) => {
-    setWeeklyChallenges(weeklyChallenges.map(challenge =>
-      challenge.id === challengeId ? { ...challenge, current: challenge.target } : challenge
-    ));
+  const handleSaveChanges = () => {
+    if (selectedChallenge) {
+      const updatedChallenges = weeklyChallenges.map(challenge =>
+        challenge.id === selectedChallenge.id ? { ...challenge, current: newProgress } : challenge
+      );
+      setWeeklyChallenges(updatedChallenges);
+    }
+    setIsUpdateDialogOpen(false);
+    setSelectedChallenge(null);
   };
   
   const isDailyChallengeCompleted = dailyChallenge.currentProgress >= 100;
@@ -121,7 +147,7 @@ export default function TrainingRoomPage() {
                           Concluído!
                         </Badge>
                     ) : (
-                      <Button variant="secondary" onClick={() => handleCompleteWeeklyChallenge(challenge.id)}>Marcar como Concluído</Button>
+                      <Button variant="secondary" onClick={() => handleUpdateClick(challenge)}>Atualizar</Button>
                     )}
                 </CardFooter>
               </Card>
@@ -129,6 +155,47 @@ export default function TrainingRoomPage() {
           })}
         </div>
       </div>
+      
+       <Dialog open={isUpdateDialogOpen} onOpenChange={setIsUpdateDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Atualizar Progresso do Desafio</DialogTitle>
+             {selectedChallenge && (
+                <DialogDescription>
+                  Atualize seu progresso para "{selectedChallenge.title}".
+                </DialogDescription>
+            )}
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+             {selectedChallenge && (
+                <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="progress" className="text-right">
+                        Progresso ({selectedChallenge.unit})
+                    </Label>
+                    <div className="col-span-3 flex items-center gap-2">
+                        <Slider
+                            value={[newProgress]}
+                            min={0}
+                            max={selectedChallenge.target}
+                            step={1}
+                            onValueChange={(value) => setNewProgress(value[0])}
+                            className="w-[80%]"
+                        />
+                        <span className="font-bold w-[50px] text-center text-sm">
+                            {newProgress}
+                        </span>
+                    </div>
+              </div>
+             )}
+          </div>
+          <DialogFooter>
+            <Button type="submit" onClick={handleSaveChanges}>
+              Salvar Alterações
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
     </div>
   );
 }
