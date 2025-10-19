@@ -327,8 +327,18 @@ export const trainingChallenges = {
 };
     
 export const challengeHistory = [
-  { id: 1, date: '25/07/2024', title: 'Corrida de 5km', type: 'Diário', status: 'Concluído', points: 10 },
-  { id: 2, date: '24/07/2024', title: 'Fazer 100 flexões', type: 'Diário', status: 'Concluído', points: 15 },
-  { id: 3, date: '21/07/2024', title: 'Treinar 4x na semana', type: 'Semanal', status: 'Não Concluído', points: 50 },
-  { id: 4, date: '23/07/2024', title: '30 minutos de cardio', type: 'Diário', status: 'Concluído', points: 10 },
+  // Mês Atual
+  { id: 1, date: '25/07/2024', title: 'Corrida de 5km', status: 'Concluído', points: 10 },
+  { id: 2, date: '24/07/2024', title: 'Fazer 100 flexões', status: 'Concluído', points: 15 },
+  { id: 3, date: '21/07/2024', title: 'Treinar 4x na semana', status: 'Não Concluído', points: 50 },
+  { id: 4, date: '23/07/2024', title: '30 minutos de cardio', status: 'Concluído', points: 10 },
+  
+  // Mês Anterior
+  { id: 5, date: '15/06/2024', title: 'Yoga Matinal', status: 'Concluído', points: 10 },
+  { id: 6, date: '12/06/2024', title: 'Aumentar peso no supino', status: 'Concluído', points: 20 },
+  { id: 7, date: '10/06/2024', title: 'Desafio de Prancha (3 min)', status: 'Não Concluído', points: 15 },
+  
+  // Mês Retrasado
+  { id: 8, date: '20/05/2024', title: 'Semana sem açúcar', status: 'Concluído', points: 100 },
+  { id: 9, date: '15/05/2024', title: 'Beber 2L de água/dia', status: 'Concluído', points: 30 },
 ];
