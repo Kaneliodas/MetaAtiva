@@ -145,7 +145,7 @@ export const socialFeed = [
         likes: 42,
         comments: [
             { id: 1, user: { name: 'Maria G.', avatarId: 'user-avatar-2' }, text: 'Parabéns Alex! Continue assim!' },
-            { id: 2, user: { name: 'Você', avatarId: 'user-avatar-3' }, text: 'Incrível! 💪' },
+            { id: 2, user: { name: 'Você', avatarId: 'user-avatar-base' }, text: 'Incrível! 💪' },
         ],
     },
     {
@@ -161,7 +161,7 @@ export const socialFeed = [
     },
     {
         id: 3,
-        user: { name: 'Você', avatarId: 'user-avatar-3' },
+        user: { name: 'Você', avatarId: 'user-avatar-base' },
         time: 'há 3 dias',
         text: 'Novo recorde no supino hoje! Lenta e constantemente ficando mais forte.',
         image: null,
@@ -295,4 +295,34 @@ export const recipes = [
   }
 ];
 
+export const trainingChallenges = {
+  daily: {
+    id: 1,
+    title: "Desafio de Supino",
+    exercise: "Supino",
+    details: "Complete 3 séries de 10 repetições com 65kg.",
+    currentProgress: 66,
+    reward: "10 pontos de XP",
+  },
+  weekly: [
+    {
+      id: 1,
+      title: "Consistência Semanal",
+      details: "Registre pelo menos 3 treinos esta semana.",
+      current: 2,
+      target: 3,
+      unit: "treinos",
+      reward: "50 pontos de XP",
+    },
+    {
+      id: 2,
+      title: "Mestre do Agachamento",
+      details: "Aumente seu peso no agachamento em 5kg em relação à semana passada.",
+      current: 82,
+      target: 85,
+      unit: "kg",
+      reward: "75 pontos de XP",
+    },
+  ],
+};
     
