@@ -110,25 +110,25 @@ export default function LogPage() {
                     </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="exercise" className="text-right">Exercício</Label>
-                            <Input id="exercise" value={exercise} onChange={(e) => setExercise(e.target.value)} className="col-span-3" />
+                        <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-2 md:gap-4">
+                            <Label htmlFor="exercise" className="text-left md:text-right">Exercício</Label>
+                            <Input id="exercise" value={exercise} onChange={(e) => setExercise(e.target.value)} className="col-span-1 md:col-span-3" />
                         </div>
-                         <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="sets" className="text-right">Séries</Label>
-                            <Input id="sets" type="number" value={sets} onChange={(e) => setSets(e.target.value)} className="col-span-3" />
+                         <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-2 md:gap-4">
+                            <Label htmlFor="sets" className="text-left md:text-right">Séries</Label>
+                            <Input id="sets" type="number" value={sets} onChange={(e) => setSets(e.target.value)} className="col-span-1 md:col-span-3" />
                         </div>
-                         <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="reps" className="text-right">Reps</Label>
-                            <Input id="reps" type="number" value={reps} onChange={(e) => setReps(e.target.value)} className="col-span-3" />
+                         <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-2 md:gap-4">
+                            <Label htmlFor="reps" className="text-left md:text-right">Reps</Label>
+                            <Input id="reps" type="number" value={reps} onChange={(e) => setReps(e.target.value)} className="col-span-1 md:col-span-3" />
                         </div>
-                         <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="weight" className="text-right">Peso (kg)</Label>
-                            <Input id="weight" type="number" value={weight} onChange={(e) => setWeight(e.target.value)} className="col-span-3" />
+                         <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-2 md:gap-4">
+                            <Label htmlFor="weight" className="text-left md:text-right">Peso (kg)</Label>
+                            <Input id="weight" type="number" value={weight} onChange={(e) => setWeight(e.target.value)} className="col-span-1 md:col-span-3" />
                         </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label className="text-right">Esforço (0-10)</Label>
-                            <div className="col-span-3 flex items-center gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-2 md:gap-4">
+                            <Label className="text-left md:text-right">Esforço (0-10)</Label>
+                            <div className="col-span-1 md:col-span-3 flex items-center gap-4">
                               <Slider
                                 value={[effort]}
                                 max={10}
