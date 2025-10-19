@@ -10,7 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { trainingPlans } from "@/lib/data";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Check } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -52,13 +53,18 @@ export default function PlanDetailPage({ params }: { params: { slug: string } })
                       {day}
                     </AccordionTrigger>
                     <AccordionContent>
-                      <ul className="space-y-3 pl-4">
-                        {exercises.map((exercise, i) => (
-                          <li key={i} className="flex items-start">
-                            <Check className="h-5 w-5 mr-3 mt-1 text-primary shrink-0" />
-                            <span>{exercise}</span>
-                          </li>
-                        ))}
+                      <ul className="space-y-4 pt-2">
+                        {exercises.map((exercise, i) => {
+                           const exerciseId = `${plan.slug}-${day.replace(/\s+/g, '-')}-${i}`;
+                           return (
+                            <li key={i} className="flex items-center space-x-3">
+                                <Checkbox id={exerciseId} />
+                                <Label htmlFor={exerciseId} className="font-normal text-base text-card-foreground leading-snug">
+                                    {exercise}
+                                </Label>
+                            </li>
+                           );
+                        })}
                       </ul>
                     </AccordionContent>
                   </AccordionItem>
