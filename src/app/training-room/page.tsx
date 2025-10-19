@@ -22,9 +22,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Progress } from "@/components/ui/progress";
-import { trainingChallenges as initialTrainingChallenges, challengeHistory } from "@/lib/data";
+import { trainingChallenges as initialTrainingChallenges, challengeHistory as initialChallengeHistory } from "@/lib/data";
 import { Flame, Star, Zap, CheckCircle2, History, TrendingUp, Trophy } from "lucide-react";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
@@ -39,10 +39,13 @@ import {
 
 type DailyChallenge = typeof initialTrainingChallenges.daily;
 type WeeklyChallenge = typeof initialTrainingChallenges.weekly[0];
+type ChallengeHistoryItem = typeof initialChallengeHistory[0];
+
 
 export default function TrainingRoomPage() {
   const [dailyChallenge, setDailyChallenge] = useState<DailyChallenge>(initialTrainingChallenges.daily);
   const [weeklyChallenges, setWeeklyChallenges] = useState<WeeklyChallenge[]>(initialTrainingChallenges.weekly);
+  const [challengeHistory, setChallengeHistory] = useState<ChallengeHistoryItem[]>(initialChallengeHistory);
   
   const [selectedChallenge, setSelectedChallenge] = useState<WeeklyChallenge | null>(null);
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
@@ -50,14 +53,35 @@ export default function TrainingRoomPage() {
   const [selectedMonth, setSelectedMonth] = useState('all');
 
   const { monthlyProgress, totalPoints } = useMemo(() => {
-    const completedChallenges = challengeHistory.filter(c => c.status === 'Concluído').length;
-    const monthlyProgress = challengeHistory.length > 0 ? (completedChallenges / challengeHistory.length) * 100 : 0;
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
+
+    const challengesThisMonth = challengeHistory.filter(c => {
+        const [day, month, year] = c.date.split('/');
+        return parseInt(month, 10) - 1 === currentMonth && parseInt(year, 10) === currentYear;
+    });
+
+    const completedChallenges = challengesThisMonth.filter(c => c.status === 'Concluído').length;
+    const monthlyProgress = challengesThisMonth.length > 0 ? (completedChallenges / challengesThisMonth.length) * 100 : 0;
+    
     const totalPoints = challengeHistory.reduce((sum, challenge) => sum + (challenge.status === 'Concluído' ? challenge.points : 0), 0);
+    
     return { monthlyProgress, totalPoints };
-  }, []);
+  }, [challengeHistory]);
 
   const handleCompleteDailyChallenge = () => {
-    setDailyChallenge({ ...dailyChallenge, currentProgress: 100 });
+    if (dailyChallenge.currentProgress < 100) {
+      setDailyChallenge({ ...dailyChallenge, currentProgress: 100 });
+      
+      const newHistoryItem: ChallengeHistoryItem = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString('pt-BR'),
+        title: dailyChallenge.title,
+        status: 'Concluído',
+        points: parseInt(dailyChallenge.reward.split(' ')[0]),
+      };
+      setChallengeHistory([newHistoryItem, ...challengeHistory]);
+    }
   };
   
   const handleUpdateClick = (challenge: WeeklyChallenge) => {
@@ -72,6 +96,26 @@ export default function TrainingRoomPage() {
         challenge.id === selectedChallenge.id ? { ...challenge, current: newProgress } : challenge
       );
       setWeeklyChallenges(updatedChallenges);
+
+      // Check if the challenge is now completed
+      if (newProgress >= selectedChallenge.target) {
+        // Avoid adding duplicate history entries if it's already completed and in history
+        const challengeInHistory = challengeHistory.find(
+          (item) => item.challengeId === selectedChallenge.id
+        );
+
+        if (!challengeInHistory) {
+          const newHistoryItem: ChallengeHistoryItem = {
+            id: Date.now(),
+            challengeId: selectedChallenge.id,
+            date: new Date().toLocaleDateString('pt-BR'),
+            title: selectedChallenge.title,
+            status: 'Concluído',
+            points: parseInt(selectedChallenge.reward.split(' ')[0]),
+          };
+          setChallengeHistory([newHistoryItem, ...challengeHistory]);
+        }
+      }
     }
     setIsUpdateDialogOpen(false);
     setSelectedChallenge(null);
@@ -85,8 +129,12 @@ export default function TrainingRoomPage() {
       const [day, month, year] = item.date.split('/');
       months.add(`${month}/${year}`);
     });
-    return Array.from(months);
-  }, []);
+    return Array.from(months).sort((a,b) => {
+      const [monthA, yearA] = a.split('/');
+      const [monthB, yearB] = b.split('/');
+      return new Date(parseInt(yearB), parseInt(monthB) -1).getTime() - new Date(parseInt(yearA), parseInt(monthA) - 1).getTime();
+    });
+  }, [challengeHistory]);
   
   const filteredHistory = useMemo(() => {
     if (selectedMonth === 'all') {
@@ -96,7 +144,7 @@ export default function TrainingRoomPage() {
       const [day, month, year] = item.date.split('/');
       return `${month}/${year}` === selectedMonth;
     })
-  }, [selectedMonth]);
+  }, [selectedMonth, challengeHistory]);
 
   return (
     <div className="flex-1 space-y-6 p-4 md:p-8 pt-6">
@@ -253,7 +301,7 @@ export default function TrainingRoomPage() {
       {/* Challenge History */}
       <Card>
         <CardHeader>
-           <div className="flex items-center justify-between">
+           <div className="flex items-center justify-between flex-wrap gap-2">
             <div>
                 <CardTitle className="flex items-center gap-2">
                     <History />
@@ -264,7 +312,7 @@ export default function TrainingRoomPage() {
                 </CardDescription>
             </div>
             <Select value={selectedMonth} onValueChange={setSelectedMonth}>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-full sm:w-[180px]">
                 <SelectValue placeholder="Filtrar por mês" />
               </SelectTrigger>
               <SelectContent>
