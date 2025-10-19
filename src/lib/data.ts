@@ -301,7 +301,7 @@ export const trainingChallenges = {
     title: "Desafio de Supino",
     exercise: "Supino",
     details: "Complete 3 séries de 10 repetições com 65kg.",
-    currentProgress: 66,
+    currentProgress: 0,
     reward: "10 pontos de XP",
   },
   weekly: [
@@ -326,3 +326,9 @@ export const trainingChallenges = {
   ],
 };
     
+export const challengeHistory = [
+  { id: 1, date: '25/07/2024', title: 'Corrida de 5km', type: 'Diário', status: 'Concluído' },
+  { id: 2, date: '24/07/2024', title: 'Fazer 100 flexões', type: 'Diário', status: 'Concluído' },
+  { id: 3, date: '21/07/2024', title: 'Treinar 4x na semana', type: 'Semanal', status: 'Não Concluído' },
+  { id: 4, date: '23/07/2024', title: '30 minutos de cardio', type: 'Diário', status: 'Concluído' },
+];

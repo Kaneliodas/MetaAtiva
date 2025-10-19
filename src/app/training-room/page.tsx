@@ -22,10 +22,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Progress } from "@/components/ui/progress";
-import { trainingChallenges as initialTrainingChallenges } from "@/lib/data";
-import { Flame, Star, Zap, CheckCircle2 } from "lucide-react";
+import { trainingChallenges as initialTrainingChallenges, challengeHistory } from "@/lib/data";
+import { Flame, Star, Zap, CheckCircle2, History } from "lucide-react";
 import React, { useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
+
 
 type DailyChallenge = typeof initialTrainingChallenges.daily;
 type WeeklyChallenge = typeof initialTrainingChallenges.weekly[0];
@@ -188,7 +191,47 @@ export default function TrainingRoomPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
+      
+      {/* Challenge History */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <History />
+            Histórico de Desafios
+          </CardTitle>
+          <CardDescription>
+            Seu desempenho nos desafios anteriores.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Data</TableHead>
+                <TableHead>Desafio</TableHead>
+                <TableHead>Tipo</TableHead>
+                <TableHead className="text-right">Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {challengeHistory.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell>{item.date}</TableCell>
+                  <TableCell className="font-medium">{item.title}</TableCell>
+                  <TableCell>{item.type}</TableCell>
+                  <TableCell className="text-right">
+                    <Badge variant="outline" className={cn(
+                      item.status === 'Concluído' ? "text-green-500 border-green-500/50" : "text-destructive border-destructive/50"
+                    )}>
+                      {item.status}
+                    </Badge>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
     </div>
   );
 }
