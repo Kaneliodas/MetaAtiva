@@ -63,14 +63,20 @@
     {
       "id": "plan-cover-2",
       "description": "Cover image for intermediate push/pull/legs plan.",
-      "imageUrl": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx3ZWlnaHRsaWZ0aW5nfGVufDB8fHx8MTc2MDgyODg2NHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "weightlifting woman"
+      "imageUrl": "https://i.ibb.co/p3g3yvR/man-doing-cable-crossover-exercise.jpg",
+      "imageHint": "weightlifting intense"
     },
     {
       "id": "plan-cover-3",
       "description": "Cover image for cardio blast plan.",
       "imageUrl": "https://images.unsplash.com/photo-1601121853354-e6e866bd2bac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxydW5uaW5nJTIwdHJhY2t8ZW58MHx8fHwxNzYwNzMzNjA5fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "running track"
+    },
+    {
+      "id": "plan-cover-4",
+      "description": "Cover image for intermediate push/pull/legs plan.",
+      "imageUrl": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx3ZWlnaHRsaWZ0aW5nfGVufDB8fHx8MTc2MDgyODg2NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "weightlifting woman"
     },
     {
       "id": "recipe-cover-1",

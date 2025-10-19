@@ -93,7 +93,7 @@ export const trainingPlans = [
     title: 'Intermediário Push/Pull/Legs',
     description: 'Uma divisão de 6 dias para quem está pronto para levar o treino para o próximo nível.',
     level: 'Intermediário',
-    coverImageId: 'plan-cover-2',
+    coverImageId: 'plan-cover-4',
     schedule: {
         'Dia 1: Empurrar': [
             'Supino: 4 séries de 6-8 reps',
