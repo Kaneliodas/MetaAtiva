@@ -23,8 +23,8 @@ import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Progress } from "@/components/ui/progress";
 import { trainingChallenges as initialTrainingChallenges, challengeHistory } from "@/lib/data";
-import { Flame, Star, Zap, CheckCircle2, History } from "lucide-react";
-import React, { useState } from "react";
+import { Flame, Star, Zap, CheckCircle2, History, TrendingUp, Trophy } from "lucide-react";
+import React, { useState, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
@@ -40,6 +40,13 @@ export default function TrainingRoomPage() {
   const [selectedChallenge, setSelectedChallenge] = useState<WeeklyChallenge | null>(null);
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
   const [newProgress, setNewProgress] = useState(0);
+
+  const { monthlyProgress, totalPoints } = useMemo(() => {
+    const completedChallenges = challengeHistory.filter(c => c.status === 'Concluído').length;
+    const monthlyProgress = challengeHistory.length > 0 ? (completedChallenges / challengeHistory.length) * 100 : 0;
+    const totalPoints = challengeHistory.reduce((sum, challenge) => sum + (challenge.status === 'Concluído' ? challenge.points : 0), 0);
+    return { monthlyProgress, totalPoints };
+  }, []);
 
   const handleCompleteDailyChallenge = () => {
     setDailyChallenge({ ...dailyChallenge, currentProgress: 100 });
@@ -74,6 +81,30 @@ export default function TrainingRoomPage() {
           </p>
         </div>
       </div>
+
+      {/* Monthly Progress */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+              <TrendingUp className="text-primary" />
+              Seu Progresso Mensal
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+            <div className="flex justify-between items-center text-lg font-bold">
+                <div className="flex items-center gap-2">
+                    <Trophy className="w-5 h-5 text-yellow-500" />
+                    <span>Pontuação Total: {totalPoints}</span>
+                </div>
+                <span>{Math.round(monthlyProgress)}%</span>
+            </div>
+            <Progress value={monthlyProgress} />
+            <CardDescription>
+                Esta barra de progresso reseta todo mês. Continue firme para alcançar 100%!
+            </CardDescription>
+        </CardContent>
+      </Card>
+
 
       {/* Daily Challenge */}
       <Card className="bg-primary/5 border-primary/20">
@@ -209,7 +240,7 @@ export default function TrainingRoomPage() {
               <TableRow>
                 <TableHead>Data</TableHead>
                 <TableHead>Desafio</TableHead>
-                <TableHead>Tipo</TableHead>
+                <TableHead>Pontos</TableHead>
                 <TableHead className="text-right">Status</TableHead>
               </TableRow>
             </TableHeader>
@@ -218,7 +249,7 @@ export default function TrainingRoomPage() {
                 <TableRow key={item.id}>
                   <TableCell>{item.date}</TableCell>
                   <TableCell className="font-medium">{item.title}</TableCell>
-                  <TableCell>{item.type}</TableCell>
+                  <TableCell className="font-semibold text-primary">{item.status === 'Concluído' ? `+${item.points}` : '-'}</TableCell>
                   <TableCell className="text-right">
                     <Badge variant="outline" className={cn(
                       item.status === 'Concluído' ? "text-green-500 border-green-500/50" : "text-destructive border-destructive/50"
