@@ -138,30 +138,30 @@ export const trainingPlans = [
 export const socialFeed = [
     {
         id: 1,
-        user: { name: 'Alex T.', avatarId: 'user-avatar-base' },
+        user: { name: 'Alex T.', avatarId: 'user-avatar-1' },
         time: 'há 2 horas',
         text: 'Acabei de bater meu recorde pessoal nos 5k! Sensação incrível. O novo plano de treino está realmente valendo a pena. #corrida #fitness #metas',
         image: { id: 'social-post-1' },
         likes: 42,
         comments: [
-            { id: 1, user: { name: 'Maria G.', avatarId: 'user-avatar-base' }, text: 'Parabéns Alex! Continue assim!' },
-            { id: 2, user: { name: 'Você', avatarId: 'user-avatar-base' }, text: 'Incrível! 💪' },
+            { id: 1, user: { name: 'Maria G.', avatarId: 'user-avatar-2' }, text: 'Parabéns Alex! Continue assim!' },
+            { id: 2, user: { name: 'Você', avatarId: 'user-avatar-3' }, text: 'Incrível! 💪' },
         ],
     },
     {
         id: 2,
-        user: { name: 'Maria G.', avatarId: 'user-avatar-base' },
+        user: { name: 'Maria G.', avatarId: 'user-avatar-2' },
         time: 'há 1 dia',
         text: 'Sessão de yoga matinal para começar o dia bem. Encontrei meu zen. 🙏',
         image: { id: 'social-post-2' },
         likes: 128,
         comments: [
-            { id: 1, user: { name: 'Alex T.', avatarId: 'user-avatar-base' }, text: 'Que foto linda!' },
+            { id: 1, user: { name: 'Alex T.', avatarId: 'user-avatar-1' }, text: 'Que foto linda!' },
         ],
     },
     {
         id: 3,
-        user: { name: 'Você', avatarId: 'user-avatar-base' },
+        user: { name: 'Você', avatarId: 'user-avatar-3' },
         time: 'há 3 dias',
         text: 'Novo recorde no supino hoje! Lenta e constantemente ficando mais forte.',
         image: null,
@@ -355,19 +355,27 @@ export const weeklyChallengesPool = [
     },
 ];
     
-export const challengeHistory = [
+export const challengeHistory: {
+  id: number;
+  challengeId?: number;
+  date: string;
+  title: string;
+  status: 'Concluído' | 'Não Concluído';
+  points: number;
+  type: 'Diário' | 'Semanal';
+}[] = [
   // Mês Atual
-  { id: 1, date: '25/07/2024', title: 'Corrida de 5km', status: 'Concluído', points: 10 },
-  { id: 2, date: '24/07/2024', title: 'Fazer 100 flexões', status: 'Concluído', points: 15 },
-  { id: 3, date: '21/07/2024', title: 'Treinar 4x na semana', status: 'Não Concluído', points: 50 },
-  { id: 4, date: '23/07/2024', title: '30 minutos de cardio', status: 'Concluído', points: 10 },
+  { id: 1, date: '25/07/2024', title: 'Corrida de 5km', status: 'Concluído', points: 10, type: 'Diário' },
+  { id: 2, date: '24/07/2024', title: 'Fazer 100 flexões', status: 'Concluído', points: 15, type: 'Diário' },
+  { id: 3, date: '21/07/2024', title: 'Treinar 4x na semana', status: 'Não Concluído', points: 50, type: 'Semanal', challengeId: 901 },
+  { id: 4, date: '23/07/2024', title: '30 minutos de cardio', status: 'Concluído', points: 10, type: 'Diário' },
   
   // Mês Anterior
-  { id: 5, date: '15/06/2024', title: 'Yoga Matinal', status: 'Concluído', points: 10 },
-  { id: 6, date: '12/06/2024', title: 'Aumentar peso no supino', status: 'Concluído', points: 20 },
-  { id: 7, date: '10/06/2024', title: 'Desafio de Prancha (3 min)', status: 'Não Concluído', points: 15 },
+  { id: 5, date: '15/06/2024', title: 'Yoga Matinal', status: 'Concluído', points: 10, type: 'Diário' },
+  { id: 6, date: '12/06/2024', title: 'Aumentar peso no supino', status: 'Concluído', points: 20, type: 'Semanal', challengeId: 902 },
+  { id: 7, date: '10/06/2024', title: 'Desafio de Prancha (3 min)', status: 'Não Concluído', points: 15, type: 'Diário' },
   
   // Mês Retrasado
-  { id: 8, date: '20/05/2024', title: 'Semana sem açúcar', status: 'Concluído', points: 100 },
-  { id: 9, date: '15/05/2024', title: 'Beber 2L de água/dia', status: 'Concluído', points: 30 },
+  { id: 8, date: '20/05/2024', title: 'Semana sem açúcar', status: 'Concluído', points: 100, type: 'Semanal', challengeId: 903 },
+  { id: 9, date: '15/05/2024', title: 'Beber 2L de água/dia', status: 'Concluído', points: 30, type: 'Diário' },
 ];

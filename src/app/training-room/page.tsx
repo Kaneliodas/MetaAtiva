@@ -51,23 +51,46 @@ export default function TrainingRoomPage() {
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
   const [newProgress, setNewProgress] = useState(0);
   const [selectedMonth, setSelectedMonth] = useState('all');
+  
+  const monthOptions = useMemo(() => {
+    const months = new Map<string, string>();
+    challengeHistory.forEach(item => {
+      const [day, month, year] = item.date.split('/');
+      const key = `${month}/${year}`;
+      if (!months.has(key)) {
+         const monthName = new Date(parseInt(year), parseInt(month) - 1).toLocaleString('pt-BR', { month: 'long' });
+         months.set(key, `${monthName.charAt(0).toUpperCase() + monthName.slice(1)}/${year}`);
+      }
+    });
+    
+    return Array.from(months.entries()).sort((a,b) => {
+      const [monthA, yearA] = a[0].split('/');
+      const [monthB, yearB] = b[0].split('/');
+      return new Date(parseInt(yearB), parseInt(monthB) - 1).getTime() - new Date(parseInt(yearA), parseInt(monthA) - 1).getTime();
+    });
+  }, [challengeHistory]);
+  
+  const filteredHistory = useMemo(() => {
+    if (selectedMonth === 'all') {
+      return challengeHistory;
+    }
+    return challengeHistory.filter(item => {
+      const [day, month, year] = item.date.split('/');
+      return `${month}/${year}` === selectedMonth;
+    })
+  }, [selectedMonth, challengeHistory]);
 
   const { monthlyProgress, totalPoints } = useMemo(() => {
-    const currentMonth = new Date().getMonth();
-    const currentYear = new Date().getFullYear();
+    const challengesToConsider = filteredHistory;
 
-    const challengesThisMonth = challengeHistory.filter(c => {
-        const [day, month, year] = c.date.split('/');
-        return parseInt(month, 10) - 1 === currentMonth && parseInt(year, 10) === currentYear;
-    });
-
-    const completedChallenges = challengesThisMonth.filter(c => c.status === 'Concluído').length;
-    const monthlyProgress = challengesThisMonth.length > 0 ? (completedChallenges / challengesThisMonth.length) * 100 : 0;
+    const completedChallenges = challengesToConsider.filter(c => c.status === 'Concluído').length;
+    const monthlyProgress = challengesToConsider.length > 0 ? (completedChallenges / challengesToConsider.length) * 100 : 0;
     
-    const totalPoints = challengeHistory.reduce((sum, challenge) => sum + (challenge.status === 'Concluído' ? challenge.points : 0), 0);
+    const totalPoints = challengesToConsider.reduce((sum, challenge) => sum + (challenge.status === 'Concluído' ? challenge.points : 0), 0);
     
     return { monthlyProgress, totalPoints };
-  }, [challengeHistory]);
+  }, [filteredHistory]);
+
 
   const handleCompleteDailyChallenge = () => {
     if (!dailyChallenge.isCompleted) {
@@ -77,6 +100,7 @@ export default function TrainingRoomPage() {
         title: dailyChallenge.title,
         status: 'Concluído',
         points: parseInt(dailyChallenge.reward.split(' ')[0]),
+        type: 'Diário',
       };
       setChallengeHistory([newHistoryItem, ...challengeHistory]);
       setDailyChallenge({ ...dailyChallenge, isCompleted: true });
@@ -93,72 +117,56 @@ export default function TrainingRoomPage() {
     if (selectedChallenge) {
       const isCompleted = newProgress >= selectedChallenge.target;
       
+      const updatedChallenges = weeklyChallenges.map(challenge =>
+        challenge.id === selectedChallenge.id ? { ...challenge, current: newProgress } : challenge
+      );
+      setWeeklyChallenges(updatedChallenges);
+      
       if (isCompleted) {
-         // Add to history
-        const newHistoryItem: ChallengeHistoryItem = {
-          id: Date.now(),
-          challengeId: selectedChallenge.id,
-          date: new Date().toLocaleDateString('pt-BR'),
-          title: selectedChallenge.title,
-          status: 'Concluído',
-          points: parseInt(selectedChallenge.reward.split(' ')[0]),
-        };
-        setChallengeHistory(prev => [newHistoryItem, ...prev]);
+        // Find the just-completed challenge
+        const completedChallenge = updatedChallenges.find(c => c.id === selectedChallenge.id);
 
-        // Replace the challenge
-        const getNewChallenge = () => {
-          const currentChallengeIds = weeklyChallenges.map(c => c.id);
-          const availableChallenges = weeklyChallengesPool.filter(
-            (p) => !currentChallengeIds.includes(p.id)
-          );
-          if (availableChallenges.length > 0) {
-            return availableChallenges[Math.floor(Math.random() * availableChallenges.length)];
-          }
-          // Return a generic one if pool is exhausted or handle as needed
-          return weeklyChallengesPool[0]; 
-        };
+        if(completedChallenge){
+            // Add to history
+            const newHistoryItem: ChallengeHistoryItem = {
+              id: Date.now(),
+              challengeId: completedChallenge.id,
+              date: new Date().toLocaleDateString('pt-BR'),
+              title: completedChallenge.title,
+              status: 'Concluído',
+              points: parseInt(completedChallenge.reward.split(' ')[0]),
+              type: 'Semanal',
+            };
+            setChallengeHistory(prev => [newHistoryItem, ...prev]);
 
-        const newChallenge = getNewChallenge();
-        setWeeklyChallenges(prev => 
-          prev.map(c => c.id === selectedChallenge.id ? newChallenge : c)
-        );
+            // Replace the challenge
+            const getNewChallenge = () => {
+              const currentChallengeIds = weeklyChallenges.map(c => c.id);
+              // Also exclude challenges already in history to avoid repeats
+              const historyChallengeIds = challengeHistory.map(c => c.challengeId);
+              const availableChallenges = weeklyChallengesPool.filter(
+                (p) => !currentChallengeIds.includes(p.id) && !historyChallengeIds.includes(p.id)
+              );
+              if (availableChallenges.length > 0) {
+                return availableChallenges[Math.floor(Math.random() * availableChallenges.length)];
+              }
+              // Return a generic one if pool is exhausted or handle as needed
+              return {...weeklyChallengesPool[0], id: Math.random()}; 
+            };
 
-      } else {
-         // Just update the progress
-         const updatedChallenges = weeklyChallenges.map(challenge =>
-          challenge.id === selectedChallenge.id ? { ...challenge, current: newProgress } : challenge
-        );
-        setWeeklyChallenges(updatedChallenges);
+            const newChallenge = getNewChallenge();
+            setWeeklyChallenges(prev => 
+              prev.map(c => c.id === selectedChallenge.id ? newChallenge : c)
+            );
+        }
       }
     }
     setIsUpdateDialogOpen(false);
     setSelectedChallenge(null);
   };
   
-  const isDailyChallengeCompleted = dailyChallenge.isCompleted;
+  const isDailyChallengeCompleted = dailyChallenge.isCompleted || challengeHistory.some(c => c.title === dailyChallenge.title && c.date === new Date().toLocaleDateString('pt-BR'));
 
-  const monthOptions = useMemo(() => {
-    const months = new Set<string>();
-    challengeHistory.forEach(item => {
-      const [day, month, year] = item.date.split('/');
-      months.add(`${month}/${year}`);
-    });
-    return Array.from(months).sort((a,b) => {
-      const [monthA, yearA] = a.split('/');
-      const [monthB, yearB] = b.split('/');
-      return new Date(parseInt(yearB), parseInt(monthB) -1).getTime() - new Date(parseInt(yearA), parseInt(monthA) - 1).getTime();
-    });
-  }, [challengeHistory]);
-  
-  const filteredHistory = useMemo(() => {
-    if (selectedMonth === 'all') {
-      return challengeHistory;
-    }
-    return challengeHistory.filter(item => {
-      const [day, month, year] = item.date.split('/');
-      return `${month}/${year}` === selectedMonth;
-    })
-  }, [selectedMonth, challengeHistory]);
 
   return (
     <div className="flex-1 space-y-6 p-4 md:p-8 pt-6">
@@ -176,20 +184,22 @@ export default function TrainingRoomPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
               <TrendingUp className="text-primary" />
-              Seu Progresso Mensal
+              Seu Progresso
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
             <div className="flex justify-between items-center text-lg font-bold">
                 <div className="flex items-center gap-2">
                     <Trophy className="w-5 h-5 text-yellow-500" />
-                    <span>Pontuação Total: {totalPoints}</span>
+                    <span>Pontuação: {totalPoints}</span>
                 </div>
-                <span>{Math.round(monthlyProgress)}%</span>
+                <span>{Math.round(monthlyProgress)}% Concluído</span>
             </div>
             <Progress value={monthlyProgress} />
             <CardDescription>
-                Esta barra de progresso reseta todo mês. Continue firme para alcançar 100%!
+                {selectedMonth === 'all' 
+                ? 'Sua pontuação e progresso totais. Filtre por mês para ver detalhes.' 
+                : `Sua pontuação e progresso para ${monthOptions.find(m => m[0] === selectedMonth)?.[1]}.`}
             </CardDescription>
         </CardContent>
       </Card>
@@ -326,13 +336,13 @@ export default function TrainingRoomPage() {
                 </CardDescription>
             </div>
             <Select value={selectedMonth} onValueChange={setSelectedMonth}>
-              <SelectTrigger className="w-full sm:w-[180px]">
+              <SelectTrigger className="w-full sm:w-[220px]">
                 <SelectValue placeholder="Filtrar por mês" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Todos os Meses</SelectItem>
-                {monthOptions.map(month => (
-                  <SelectItem key={month} value={month}>{month}</SelectItem>
+                {monthOptions.map(([key, name]) => (
+                  <SelectItem key={key} value={key}>{name}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -344,6 +354,7 @@ export default function TrainingRoomPage() {
               <TableRow>
                 <TableHead>Data</TableHead>
                 <TableHead>Desafio</TableHead>
+                <TableHead>Tipo</TableHead>
                 <TableHead>Pontos</TableHead>
                 <TableHead className="text-right">Status</TableHead>
               </TableRow>
@@ -353,6 +364,9 @@ export default function TrainingRoomPage() {
                 <TableRow key={item.id}>
                   <TableCell>{item.date}</TableCell>
                   <TableCell className="font-medium">{item.title}</TableCell>
+                  <TableCell>
+                    <Badge variant="outline">{item.type}</Badge>
+                  </TableCell>
                   <TableCell className="font-semibold text-primary">{item.status === 'Concluído' ? `+${item.points}` : '-'}</TableCell>
                   <TableCell className="text-right">
                     <Badge variant="outline" className={cn(
