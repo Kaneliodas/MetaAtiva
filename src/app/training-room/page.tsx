@@ -83,13 +83,6 @@ export default function TrainingRoomPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-lg">{dailyChallenge.details}</p>
-          <div>
-            <div className="flex justify-between items-center mb-1">
-                <p className="text-sm font-medium">Progresso</p>
-                <p className="text-sm font-bold">{dailyChallenge.currentProgress}%</p>
-            </div>
-            <Progress value={dailyChallenge.currentProgress} indicatorClassName="bg-yellow-400" />
-          </div>
         </CardContent>
         <CardFooter className="flex justify-between items-center">
           <div className="text-sm font-semibold flex items-center gap-1">
