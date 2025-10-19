@@ -36,7 +36,6 @@ export default function PlanDetailPage({ params }: { params: { slug: string } })
             {plan.description}
           </p>
         </div>
-        <Button size="lg" className="w-full md:w-auto">Iniciar Este Plano</Button>
       </div>
 
       <div className="grid gap-8 md:grid-cols-3">
