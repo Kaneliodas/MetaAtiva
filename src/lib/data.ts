@@ -295,64 +295,55 @@ export const recipes = [
   }
 ];
 
-export const trainingChallenges = {
-  daily: {
-    id: 101,
-    title: "Desafio de Flexões",
-    details: "Faça 50 flexões (pode ser dividido em séries).",
-    reward: "10 pontos",
-    isCompleted: false,
+export const achievementsData = [
+  {
+    id: 201,
+    title: "Consistência Semanal",
+    description: "Registre pelo menos 3 treinos esta semana.",
+    reward: "50 Pontos",
+    category: "Consistência",
+    isUnlocked: true,
   },
-  weekly: [
-    {
-      id: 201,
-      title: "Consistência Semanal",
-      details: "Registre pelo menos 3 treinos esta semana.",
-      current: 1,
-      target: 3,
-      unit: "treinos",
-      reward: "50 pontos",
-    },
-    {
-      id: 202,
-      title: "Mestre do Agachamento",
-      details: "Agache com um total de 1000kg (séries x reps x peso).",
-      current: 0,
-      target: 1000,
-      unit: "kg",
-      reward: "75 pontos",
-    },
-  ],
-};
-
-export const weeklyChallengesPool = [
-    {
-      id: 301,
-      title: "Rei da Barra Fixa",
-      details: "Complete 50 repetições de barra fixa na semana.",
-      current: 0,
-      target: 50,
-      unit: "reps",
-      reward: "80 pontos",
-    },
-    {
-      id: 302,
-      title: "Maratonista de Esteira",
-      details: "Corra um total de 21km na esteira esta semana.",
-      current: 0,
-      target: 21,
-      unit: "km",
-      reward: "100 pontos",
-    },
-    {
-      id: 303,
-      title: "Guerreiro do HIIT",
-      details: "Faça 2 sessões de treino HIIT de 20 minutos.",
-      current: 0,
-      target: 2,
-      unit: "sessões",
-      reward: "60 pontos",
-    },
+  {
+    id: 202,
+    title: "Mestre do Agachamento",
+    description: "Agache com um total de 1000kg (séries x reps x peso).",
+    reward: "75 Pontos",
+    category: "Força",
+    isUnlocked: false,
+  },
+  {
+    id: 301,
+    title: "Rei da Barra Fixa",
+    description: "Complete 50 repetições de barra fixa na semana.",
+    reward: "80 Pontos",
+    category: "Força",
+    isUnlocked: false,
+  },
+  {
+    id: 302,
+    title: "Maratonista de Esteira",
+    description: "Corra um total de 21km na esteira esta semana.",
+    reward: "100 Pontos",
+    category: "Cardio",
+    isUnlocked: true,
+  },
+  {
+    id: 303,
+    title: "Guerreiro do HIIT",
+    description: "Faça 2 sessões de treino HIIT de 20 minutos.",
+    reward: "60 Pontos",
+    category: "Cardio",
+    isUnlocked: false,
+  },
+  {
+    id: 401,
+    title: "Primeiro Desafio Diário",
+    description: "Complete seu primeiro desafio diário.",
+    reward: "10 Pontos",
+    category: "Início Rápido",
+    isUnlocked: true,
+  },
 ];
     
 export const challengeHistory: {

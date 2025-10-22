@@ -25,7 +25,7 @@ import {
   LogOut,
   User,
   BookHeart,
-  Dumbbell,
+  ShieldCheck,
 } from 'lucide-react';
 import { AppLogo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -43,7 +43,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 const navItems = [
   { href: '/', label: 'Painel', icon: LayoutDashboard },
   { href: '/log', label: 'Registro de Exercícios', icon: PenSquare },
-  { href: '/training-room', label: 'Sala de Treinamento', icon: Dumbbell },
+  { href: '/achievements', label: 'Conquistas', icon: ShieldCheck },
   { href: '/goals', label: 'Metas', icon: Target },
   { href: '/imc', label: 'Calculadora IMC', icon: Calculator },
   { href: '/plans', label: 'Planos de Treino', icon: BookOpen },
