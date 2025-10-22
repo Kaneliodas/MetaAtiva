@@ -167,7 +167,7 @@ export default function LogPage() {
                     <TableCell>{log.effort}</TableCell>
                     <TableCell className="text-right">
                       <Button variant="ghost" size="icon" onClick={() => setLogToDelete(log.id)}>
-                          <Trash2 className="h-4 w-4 text-destructive" />
+                          <Trash2 className="h-4 w-4 text-primary" />
                           <span className="sr-only">Deletar</span>
                       </Button>
                     </TableCell>
